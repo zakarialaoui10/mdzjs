@@ -1,5 +1,7 @@
 import { Str } from "ziko";
 import resolve from "@rollup/plugin-node-resolve";
+import commonjs from '@rollup/plugin-commonjs';
+
 import terser from "@rollup/plugin-terser";
 
 const Addon_name = "mdz";
@@ -60,6 +62,6 @@ export default {
   external: ["ziko"],
   plugins: [
     resolve(),
-    //commonjs(),
+    commonjs(),
   ],
 };

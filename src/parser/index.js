@@ -3,7 +3,8 @@ import { jsx2js } from './jsx2js.js';
 import { getComponentType } from './get-component-type.js';
 import { parseMarkdown } from './parser-markdown.js';
 function parseMDZ(markdown) {
-    const { body, attributes } = parseMarkdown(markdown);
+    const { body, attributes } = parseMarkdown(markdown.trim(""));
+    const {modules, ...props} = attributes
     let JSXIndexesBefore = [], JSXIndexesAfter = [];
     const Output = body.split("\n").filter((n) => n !== "");
     Output.filter((n, i) => {
@@ -20,7 +21,8 @@ function parseMDZ(markdown) {
     });
     return{
       components,
-      attributes
+      modules,
+      attributes : props
     }
   }
 export{

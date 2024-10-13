@@ -1,19 +1,22 @@
 import { parseMDZ } from "./parser/index.js";
+import { getZikoScript } from "./converter/index.js";
 const markdownContent = `
 ---
-modules: 
- - import A from "./a"
- - import B from "./b"
-title: ziko
+modules:
+ - import Component from "./Component" 
+ - import OtherComponent from "./OtherComponent"
+ - import OtherComonenetWithProps from "./OtherComonenetWithProps"
+title: MDZ
 ---
-line 0
+Para
+[Link](#hi)
 
-<Comp0 />
+<Component />
 
 line2
 
-<Comp1 />
-<Comp2 data="hello" />
-`.trim();
-
-console.log(parseMDZ(markdownContent))
+<OtherComponent />
+<OtherComonenetWithProps data="hello" />
+`;
+const script = getZikoScript(markdownContent);
+console.log(script)
