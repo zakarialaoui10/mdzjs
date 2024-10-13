@@ -1,5 +1,5 @@
 {
-  "name": "mdz.js",
+  "name": "mdzjs",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,12 @@
     "dev": "cross-env NODE_ENV=development rollup --config rollup.config.js",
     "watch": "cross-env NODE_ENV=development rollup --config rollup.config.js -w",
     "build": "cross-env NODE_ENV=production rollup --config rollup.config.js"
+  },
+  "./": {
+    "import": "./src/index.js"
+  },
+  "./vite": {
+    "import": "./src/vite/index.js"
   },
   "author": "",
   "keywords": [
