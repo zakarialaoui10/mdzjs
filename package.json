@@ -11,11 +11,16 @@
     "build": "cross-env NODE_ENV=production rollup --config rollup.config.js"
   },
   "author": "",
-  "keywords": ["zikojs","zikojs-addons"],
+  "keywords": [
+    "zikojs",
+    "zikojs-addons"
+  ],
   "license": "MIT",
   "dependencies": {
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-terser": "^0.4.4",
+    "front-matter": "^4.0.2",
+    "marked": "^14.1.2",
     "rollup": "^4.24.0",
     "ziko": "^0.0.14"
   },

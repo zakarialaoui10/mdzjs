@@ -2,7 +2,7 @@ import { Str } from "ziko";
 import resolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 
-const Addon_name = "ziko-something";
+const Addon_name = "mdz";
 const Author = "";
 
 const banner = `
