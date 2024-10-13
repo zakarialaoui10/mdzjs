@@ -1,4 +1,3 @@
-import { parseMDZ } from "./parser/index.js";
 import { getZikoScript } from "./converter/index.js";
 const markdownContent = `
 ---
