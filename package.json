@@ -1,5 +1,5 @@
 {
-  "name": "ziko-addon_name",
+  "name": "mdz.js",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
@@ -17,15 +17,15 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@rollup/plugin-node-resolve": "^15.3.0",
-    "@rollup/plugin-terser": "^0.4.4",
     "front-matter": "^4.0.2",
     "marked": "^14.1.2",
     "rollup": "^4.24.0",
-    "ziko": "^0.0.14"
+    "ziko": "^0.0.16"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.0",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-terser": "^0.4.4",
     "cross-env": "^7.0.3"
   }
 }

@@ -7,24 +7,10 @@ export function MDZ(){
           console.log(src)
           return {
             code: getZikoScript(src),
-            map: null
+            map: null,
           };
         }
       },
-      resolveId(id) {
-        if (id.endsWith('.mdz')) {
-          console.log("resolve ...")
-          return id;
-        }
-        return null;
-      },
-      load(id) {
-        if (id.endsWith('.mdz')) {
-          console.log("load ...")
-          return `export default ''`;
-        }
-        return null;
-      }
     };
   }
   
