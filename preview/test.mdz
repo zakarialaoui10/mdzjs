@@ -1,6 +1,7 @@
 ---
 modules : 
  - import InteractiveBlock from "./InteractiveBlock.js"
+ - import Scene from "./Scene.js"
 title : MDZ
 background : tomato
 ---
@@ -17,5 +18,7 @@ Here’s an example of an interactive block rendered within this MDZ file:
 2- **Frontmatter Support :** In this example, the title of the document is set dynamically through the frontmatter.
 
 3- **Extensible :** Create custom components like InteractiveBlock and use them in any Markdown file.
+
+<Scene />
 
 
