@@ -86,10 +86,11 @@ const transformMDZ = (markdownAST) => {
       }
       case 'html' : {
         const component = node.value.trim();
+        console.log({component})
         const type = getComponentType(component);
         switch (type) {
           case 'jsx':
-            return ` ${jsx2js(component)}`;
+            return ` ${jsx2js(component.replaceAll("\n",""))}`;
           case 'html':
             return ` HTMLWrapper("${component}")`;
           default:
@@ -103,22 +104,36 @@ const transformMDZ = (markdownAST) => {
   };
 
   const body = markdownAST.children.map(transformNode).join(',\n');
-  return `()=>Flex(
-${body}
-).vertical(0,0)`
+  return body
+//   return `const UI=()=>Flex(
+// ${body}
+// ).vertical(0,0)
+// export default UI
+// `
 };
 
 const transpileMDZ= markdown =>{
   const { imports, frontmatter, cleanedMarkdown } = processMDZ(markdown);
   const ast = parseMDZ(cleanedMarkdown);
-  const jsFunction = transformMDZ(ast);
+  const {__Props__, ...Attr} = frontmatter
+  const body = transformMDZ(ast);
+  const defaultProps = __Props__
+    ? Object.entries(__Props__)
+        .map(([key, value]) => `${key} = ${JSON.stringify(value)}`)
+        .join(', ')
+    : '';
+  let ui = `const UI=({${defaultProps}})=>Flex(
+${body}
+).vertical(0,0);
+export default UI;
+  `
   let exports = `
-const attributes = ${JSON.stringify(frontmatter)};
-export {${Object.keys(frontmatter)}} = attributes;
+const Attr = ${JSON.stringify(Attr)};
+export {${Object.keys(Attr)}} = Attr;
   `
   const Output = [
     ...imports,
-    jsFunction,
+    ui,
     exports,
   ].join('\n');
   

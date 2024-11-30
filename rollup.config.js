@@ -57,7 +57,7 @@ isProduction &&
   );
 
 export default {
-  input: "src/index.js",
+  input: "v2/index.js",
   output,
   external: ["ziko"],
   plugins: [

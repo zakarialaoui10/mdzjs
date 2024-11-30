@@ -1,5 +1,5 @@
 import { transpileMDZ } from "../../transpiler/index.js";
-export function MDZ(){
+export function ViteMDZ(){
     return {
       name: 'MDZ',
       transform(src, id) {
