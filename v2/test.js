@@ -20,18 +20,24 @@ p="kkk"
 
 This is a paragraph with <Button data="hello"/>
 
-<p> Hello </p>
+<p> Hello {1+1} </p>
 
-[ll](#)
+<Button 
+data="100" 
+p="kkk"
+m={1+1}
+/>
 
-***uuu***
-![alt](#)
 
+Hello {(()=>{
+  return 1
+})()} , How are you ?
 
-<InteractiveBlog />
+Hello Ziko
 `;
 
-console.log(transpileMDZ(Markdown))
+let res = transpileMDZ(Markdown)
+// console.log(res)
 
 // const md2 = "```js \n console.log(1) \n ```"
 // console.log(transpileMDZ(md2))

@@ -2,6 +2,7 @@ import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import { getComponentType } from './get-component-type.js';
 import { jsx2js } from './jsx2js.js';
+import { processText } from "./process-text.js"
 import { parse as parseYaml } from 'yaml'; 
 
 const parseMDZ = (markdown) => unified().use(remarkParse).parse(markdown);
@@ -33,10 +34,20 @@ const transformMDZ = (markdownAST) => {
   const transformNode = (node) => {
     // console.log(node.type)
     switch(node.type){
-      case 'text' : return JSON.stringify(node.value);
+      case 'text' : {
+        const text = node.value;
+        // console.log({text})
+        console.log({processText : processText(text)})
+        const ExpressionPattern = /\{\/\*[^}]*\*\/\}|\{[^}]*\}|[^{}]+/g;
+        const strings = text.match(ExpressionPattern)
+        // console.log({strings})
+        return text.includes("Ziko")?null:JSON.stringify(node.value);
+      }
       case 'paragraph' : {
         const childNodes = node.children.map(transformNode).join(', ');
-        return ` tag('p', {}, ${childNodes})`; 
+        // console.log({childNodes})
+        // return (!!childNodes)?` tag('p', {}, ${childNodes})`:null;
+        return ` tag('p', {}, ${childNodes})` 
       }
       case 'heading' : {
         const childNodes = node.children.map(transformNode).join(', ');
@@ -86,7 +97,6 @@ const transformMDZ = (markdownAST) => {
       }
       case 'html' : {
         const component = node.value.trim();
-        console.log({component})
         const type = getComponentType(component);
         switch (type) {
           case 'jsx':
@@ -105,11 +115,6 @@ const transformMDZ = (markdownAST) => {
 
   const body = markdownAST.children.map(transformNode).join(',\n');
   return body
-//   return `const UI=()=>Flex(
-// ${body}
-// ).vertical(0,0)
-// export default UI
-// `
 };
 
 const transpileMDZ= markdown =>{
@@ -125,10 +130,8 @@ const transpileMDZ= markdown =>{
   let ui = `const UI=({${defaultProps}})=>Flex(
 ${body}
 ).vertical(0,0);
-export default UI;
-  `
-  let exports = `
-const Attr = ${JSON.stringify(Attr)};
+export default UI;`
+  let exports = `const Attr = ${JSON.stringify(Attr)};
 export {${Object.keys(Attr)}} = Attr;
   `
   const Output = [

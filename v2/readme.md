@@ -2,9 +2,11 @@
 
 ✅ Frontmatter
 ✅ Props
+✅ Expression value in props
 ✅ Markdown
 ✅ Html
 ✅ Zikojs Components
+
 
 ## To Do
 
