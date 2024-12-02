@@ -117,8 +117,6 @@ const transformMDZ = (markdownAST) => {
       mdBody.push(node); 
     }
   });
-  // console.log({fm:parseYaml(fm[0].value)})
-  // return mdBody.map(transformNode).join(`,\n`)
   return {
     fm : parseYaml(fm[0].value),
     body : mdBody.map(transformNode).join(`,\n`)
@@ -132,10 +130,10 @@ const transpileMDZ= markdown =>{
   const ast = parseMDZ(cleanedMarkdown);
   const {body,fm} = transformMDZ(ast);
   const {__Props__, ...Attr} = fm
-  console.log({
-    body,
-    fm
-  })
+  // console.log({
+  //   body,
+  //   fm
+  // })
   const defaultProps = __Props__
     ? Object.entries(__Props__)
         .map(([key, value]) => `${key} = ${JSON.stringify(value)}`)
@@ -144,14 +142,13 @@ const transpileMDZ= markdown =>{
   let ui = `
   import {text} from "ziko"
   const tag=(...ars)=> text("hi")
-  const UI=({${defaultProps}})=>Flex(
+  const UI=({${defaultProps}}={})=>Flex(
 ${body}
 ).vertical(0,0);
 export default UI;`
-//   let exports = `const Attr = ${JSON.stringify(Attr)};
-// export {${Object.keys(Attr)}} = Attr;
-//   `
-  let exports = `export const attr = ${JSON.stringify(Attr,"",2)}`
+  let exports = `const {${Object.keys(Attr).join(",")}} = ${JSON.stringify(Attr,"",2)}
+export {${Object.keys(Attr).join(", ")}}
+  `
   const Output = [
     ...imports,
     ui,

@@ -11,5 +11,7 @@
 //     background : background ?? "orange"
 // }).vertical(-1, "space-around")
 console.log(1)
-import {attr} from "./test.mdz"
-console.log(attr)
+import UI,{title} from "./test.mdz"
+console.log({title})
+console.log(UI)
+UI()
