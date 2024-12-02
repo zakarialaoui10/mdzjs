@@ -1,6 +1,5 @@
 import { transpileMDZ } from "./transpiler/index.js";
-const Markdown = `
----
+const Markdown = `---
 title: "Example Page"
 author: "John Doe"
 count : 10
@@ -48,5 +47,14 @@ let res = transpileMDZ(Markdown)
 console.log(res)
 
 // const md2 = "```js \n console.log(1) \n ```"
+// const md2 = `
+// ---
+// title : "MDZ"     
+// background : "red"
+// ---
+
+// Hello World 
+// `
+// console.log(md2)
 // console.log(transpileMDZ(md2))
 

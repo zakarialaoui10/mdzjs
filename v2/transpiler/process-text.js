@@ -20,7 +20,7 @@ function processText(str) {
         currentExpr += char;
         if (braceCount === 0) {
           try {
-            const evaluatedExpr = eval(currentExpr.trim());
+            const evaluatedExpr = new Function(currentExpr.trim())();
             result.push(evaluatedExpr); 
           } catch (e) {
             result.push(currentExpr.trim()); 

@@ -4,24 +4,26 @@ import { getComponentType } from './get-component-type.js';
 import { jsx2js } from './jsx2js.js';
 import { processText } from "./process-text.js"
 import { parse as parseYaml } from 'yaml'; 
+import remarkFrontmatter from 'remark-frontmatter';
 
-const parseMDZ = (markdown) => unified().use(remarkParse).parse(markdown);
+const parseMDZ = (markdown) => unified().use(remarkParse).use(remarkFrontmatter).parse(markdown);
 
 const processMDZ = (markdown) => {
   // Frontmatter regex (between '---' or '+++')
-  const frontmatterRegex = /^---\n([\s\S]+?)\n---/m;
+  // const frontmatterRegex = /^---\n([\s\S]+?)\n---/m;
   const importRegex = /^import\s+.+from\s+.+;$/gm;
   
-  let imports = ['import {tag, Flex, HTMLWrapper} from "ziko"'];
+  // let imports = ['import {tag, Flex, HTMLWrapper} from "ziko"'];
+  let imports = ['import {Flex, HTMLWrapper} from "ziko"'];
   let frontmatter = {};
   let cleanedMarkdown = markdown;
 
-  const frontmatterMatch = markdown.match(frontmatterRegex);
-  if (frontmatterMatch) {
-    const frontmatterContent = frontmatterMatch[1];
-    frontmatter = parseYaml(frontmatterContent); 
-    cleanedMarkdown = cleanedMarkdown.replace(frontmatterRegex, ''); 
-  }
+  // const frontmatterMatch = markdown.match(frontmatterRegex);
+  // if (frontmatterMatch) {
+  //   const frontmatterContent = frontmatterMatch[1];
+  //   frontmatter = parseYaml(frontmatterContent); 
+  //   cleanedMarkdown = cleanedMarkdown.replace(frontmatterRegex, ''); 
+  // }
 
   cleanedMarkdown = cleanedMarkdown.replace(importRegex, (match) => {
     imports.push(match.trim());
@@ -32,22 +34,14 @@ const processMDZ = (markdown) => {
 
 const transformMDZ = (markdownAST) => {
   const transformNode = (node) => {
-    // console.log(node.type)
     switch(node.type){
       case 'text' : {
         const text = node.value;
-        // console.log({text})
-        console.log({processText : processText(text)})
-        const ExpressionPattern = /\{\/\*[^}]*\*\/\}|\{[^}]*\}|[^{}]+/g;
-        const strings = text.match(ExpressionPattern)
-        // console.log({strings})
-        return processText(text).join("")
+        return `"${processText(text).join("")}"`
         return text.includes("Ziko")?null:JSON.stringify(node.value);
       }
       case 'paragraph' : {
         const childNodes = node.children.map(transformNode).join(', ');
-        // console.log({childNodes})
-        // return (!!childNodes)?` tag('p', {}, ${childNodes})`:null;
         return ` tag('p', {}, ${childNodes})` 
       }
       case 'heading' : {
@@ -113,34 +107,56 @@ const transformMDZ = (markdownAST) => {
     }
     return 'null';
   };
+  let fm = [];
+  let mdBody = [];
 
-  const body = markdownAST.children.map(transformNode).join(',\n');
-  return body
+  markdownAST.children.forEach((node) => {
+    if (node.type === 'yaml') {
+      fm.push(node); 
+    } else {
+      mdBody.push(node); 
+    }
+  });
+  // console.log({fm:parseYaml(fm[0].value)})
+  // return mdBody.map(transformNode).join(`,\n`)
+  return {
+    fm : parseYaml(fm[0].value),
+    body : mdBody.map(transformNode).join(`,\n`)
+  }
+  // const body = markdownAST.children.map(transformNode).join(',\n');
+  // return body
 };
 
 const transpileMDZ= markdown =>{
-  const { imports, frontmatter, cleanedMarkdown } = processMDZ(markdown);
+  const { imports, cleanedMarkdown } = processMDZ(markdown);
   const ast = parseMDZ(cleanedMarkdown);
-  const {__Props__, ...Attr} = frontmatter
-  const body = transformMDZ(ast);
+  const {body,fm} = transformMDZ(ast);
+  const {__Props__, ...Attr} = fm
+  console.log({
+    body,
+    fm
+  })
   const defaultProps = __Props__
     ? Object.entries(__Props__)
         .map(([key, value]) => `${key} = ${JSON.stringify(value)}`)
         .join(', ')
     : '';
-  let ui = `const UI=({${defaultProps}})=>Flex(
+  let ui = `
+  import {text} from "ziko"
+  const tag=(...ars)=> text("hi")
+  const UI=({${defaultProps}})=>Flex(
 ${body}
 ).vertical(0,0);
 export default UI;`
-  let exports = `const Attr = ${JSON.stringify(Attr)};
-export {${Object.keys(Attr)}} = Attr;
-  `
+//   let exports = `const Attr = ${JSON.stringify(Attr)};
+// export {${Object.keys(Attr)}} = Attr;
+//   `
+  let exports = `export const attr = ${JSON.stringify(Attr,"",2)}`
   const Output = [
     ...imports,
     ui,
     exports,
   ].join('\n');
-  
   return Output
 
 }
