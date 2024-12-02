@@ -10,8 +10,8 @@ function processText(str) {
   
       if (char === '{') {
         if (braceCount === 0 && currentText) {
-          result.push(currentText); // Push the current static text before expression
-          currentText = ''; // Reset currentText
+          result.push(currentText); 
+          currentText = ''; 
         }
         braceCount++;
         currentExpr += char;

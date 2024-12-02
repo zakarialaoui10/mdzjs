@@ -30,14 +30,22 @@ m={1+1}
 
 
 Hello {(()=>{
-  return 1
+  let a = Math.random()
+  return 1/a
 })()} , How are you ?
 
 Hello Ziko
+
+{(async () => {
+  const response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
+  const data = await response.json()
+  return data
+})()}
+
 `;
 
 let res = transpileMDZ(Markdown)
-// console.log(res)
+console.log(res)
 
 // const md2 = "```js \n console.log(1) \n ```"
 // console.log(transpileMDZ(md2))

@@ -41,6 +41,7 @@ const transformMDZ = (markdownAST) => {
         const ExpressionPattern = /\{\/\*[^}]*\*\/\}|\{[^}]*\}|[^{}]+/g;
         const strings = text.match(ExpressionPattern)
         // console.log({strings})
+        return processText(text).join("")
         return text.includes("Ziko")?null:JSON.stringify(node.value);
       }
       case 'paragraph' : {
