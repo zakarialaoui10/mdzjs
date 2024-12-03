@@ -5,8 +5,9 @@ import { jsx2js } from './jsx2js.js';
 import { processText } from "./process-text.js"
 import { parse as parseYaml } from 'yaml'; 
 import remarkFrontmatter from 'remark-frontmatter';
+import { remarkImports } from './import-plugin.js';
 
-const parseMDZ = (markdown) => unified().use(remarkParse).use(remarkFrontmatter).parse(markdown);
+const parseMDZ = (markdown) => unified().use(remarkParse).use(remarkFrontmatter).use(remarkImports).parse(markdown);
 
 const processMDZ = (markdown) => {
   // Frontmatter regex (between '---' or '+++')
@@ -128,6 +129,7 @@ const transformMDZ = (markdownAST) => {
 const transpileMDZ= markdown =>{
   const { imports, cleanedMarkdown } = processMDZ(markdown);
   const ast = parseMDZ(cleanedMarkdown);
+  // console.log({im : ast.data})
   const {body,fm} = transformMDZ(ast);
   const {__Props__, ...Attr} = fm
   // console.log({

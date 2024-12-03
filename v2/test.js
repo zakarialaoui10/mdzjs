@@ -1,4 +1,6 @@
 import { transpileMDZ } from "./transpiler/index.js";
+
+let cos = Math.cos
 const Markdown = `---
 title: "Example Page"
 author: "John Doe"
@@ -10,6 +12,8 @@ __Props__ : {
 ---
 
 import Button from './Button.js';
+
+import {cos} from "ziko";
 
 # Hello World 
 <Button 
@@ -33,13 +37,14 @@ Hello {(()=>{
   return 1/a
 })()} , How are you ?
 
-Hello Ziko
 
 {(async () => {
   const response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
   const data = await response.json()
   return data
 })()}
+
+Test {cos(0)}
 
 `;
 
