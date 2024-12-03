@@ -1,6 +1,6 @@
 import { transpileMDZ } from "./transpiler/index.js";
 
-let cos = Math.cos
+// let cos = Math.cos
 const Markdown = `---
 title: "Example Page"
 author: "John Doe"
