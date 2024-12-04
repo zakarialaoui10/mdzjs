@@ -19,12 +19,15 @@ function processText(str) {
         braceCount--;
         currentExpr += char;
         if (braceCount === 0) {
-          try {
-            const evaluatedExpr = new Function(`return ${currentExpr.trim().slice(1,-1)}`)()
-            result.push(evaluatedExpr); 
-          } catch (e) {
-            result.push(currentExpr.trim()); 
-          }
+          result.push({type:"expression", value : currentExpr.slice(1,-1)}); 
+          // try {
+          //   // console.log({currentExpr:currentExpr.slice(1,-1)})
+          //   // const evaluatedExpr = new Function(`return ${currentExpr.trim().slice(1,-1)}`)()
+          //   result.push({type:"expression", value : currentExpr.slice(1,-1)}); 
+          // } catch (e) {
+          //   //result.push({type:"string", value : currentExpr.trim}); 
+          //   result.push(currentExpr.trim()); 
+          // }
           currentExpr = ''; 
         }
       } else {
@@ -35,11 +38,10 @@ function processText(str) {
         }
       }
     }  
-    if (currentText) {
-      result.push(currentText);
-    }
-  
-    return result;
+    // if (currentText) {
+    //   result.push(currentText);
+    // }
+    return result.map(n=>typeof(n)==="string"?`"${n}"`:n.value);
   }
 export{
   processText

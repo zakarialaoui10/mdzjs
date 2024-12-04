@@ -5,8 +5,10 @@ __Props__ : {
     a : 1
 }
 ---
-
-Hello World {Math.cos(0)}
+<script>
+    const {cos} = Math
+</script>
+Hello World {cos(0)}
 
 <script>
     var a = 1000

@@ -5,7 +5,6 @@ import { jsx2js } from './jsx2js.js';
 import { processText } from "./process-text.js"
 import { parse as parseYaml } from 'yaml'; 
 import remarkFrontmatter from 'remark-frontmatter';
-import { remarkImports } from './import-plugin.js';
 
 const parseMDZ = (markdown) => unified().use(remarkParse).use(remarkFrontmatter).parse(markdown);
 
@@ -28,7 +27,7 @@ const transformMDZ = (markdownAST) => {
     switch(node.type){
       case 'text' : {
         const text = node.value;
-        return `"${processText(text).join("")}"`
+        return processText(text)
       }
       case 'paragraph' : {
         const childNodes = node.children.map(transformNode).join(', ');
@@ -141,7 +140,10 @@ const transpileMDZ= markdown =>{
 // ).vertical(0,0);
 // export default UI;`
 let ui = `const __items__ = [];
-const tag = (...arg) =>  arg
+const tag = (...arg) =>  {
+  console.log(arg)
+  return arg
+}
 ${body}
 console.log({__items__})
 const A = () =>100
@@ -152,8 +154,8 @@ export {${Object.keys(Attr).join(", ")}}
   `
   const Output = [
     ...imports,
-    exports,
     ui,
+    exports,
   ].join('\n');
   return Output
 
