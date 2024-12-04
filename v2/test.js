@@ -1,6 +1,6 @@
 import { transpileMDZ } from "./transpiler/index.js";
 
-// let cos = Math.cos
+let cos = Math.cos
 const Markdown = `---
 title: "Example Page"
 author: "John Doe"
@@ -37,6 +37,9 @@ Hello {(()=>{
   return 1/a
 })()} , How are you ?
 
+<script>
+ let a=10
+</script>
 
 {(async () => {
   const response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
@@ -44,12 +47,21 @@ Hello {(()=>{
   return data
 })()}
 
-Test {cos(0)}
+{const sayHi=()=>{
 
+  return "Hi"
+}
+}
+
+Test {sayHi()}
+
+<script>
+ let a=1
+</script>
 `;
 
 let res = transpileMDZ(Markdown)
-console.log(res)
+// console.log(res)
 
 // const md2 = "```js \n console.log(1) \n ```"
 // const md2 = `

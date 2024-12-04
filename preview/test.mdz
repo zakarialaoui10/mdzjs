@@ -5,6 +5,17 @@ __Props__ : {
     a : 1
 }
 ---
-import {cos} from "ziko";
 
-Hello World {cos(0)}
+Hello World {Math.cos(0)}
+
+<script>
+    var a = 1000
+    const b = ()=> Math.random()
+
+    // if(1){
+    //     <Buuton />
+    // }
+</script>
+
+test {a}
+
