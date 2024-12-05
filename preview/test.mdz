@@ -2,13 +2,16 @@
 title : "MDZ"
 background : "red"
 __Props__ : {
-    a : 1
+    a : 1,
+    c : 10
 }
 ---
 <script>
     const {cos} = Math
 </script>
 Hello World {cos(0)}
+
+Hello {title}
 
 <script>
     var a = 1000

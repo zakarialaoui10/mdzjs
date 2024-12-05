@@ -19,7 +19,7 @@ const processMDZ = (markdown) => {
     imports.push(match.trim());
     return ''; 
   });
-  return { imports, frontmatter, cleanedMarkdown };
+  return { imports : imports.join("\n"), frontmatter, cleanedMarkdown };
 };
 
 const transformMDZ = (markdownAST) => {
@@ -132,30 +132,24 @@ const transpileMDZ= markdown =>{
         .map(([key, value]) => `${key} = ${JSON.stringify(value)}`)
         .join(', ')
     : '';
-//   let ui = `
-//   import {text} from "ziko"
-//   const tag=(...ars)=> text("hi")
-//   const UI=({${defaultProps}}={})=>Flex(
-// ${body}
-// ).vertical(0,0);
-// export default UI;`
-let ui = `const __items__ = [];
+let ui = `
+const __items__ = [];
 const tag = (...arg) =>  {
   console.log(arg)
   return arg
 }
 ${body}
 console.log({__items__})
-const A = () =>100
-export default A
+const UI = (${defaultProps ? `{${defaultProps}}={}`: ""}) => Flex(...__items__);
+export default UI
 `
-  let exports = `const {${Object.keys(Attr).join(",")}} = ${JSON.stringify(Attr,"",2)}
-export {${Object.keys(Attr).join(", ")}}
-  `
+let attributs = `const {${Object.keys(Attr).join(",")}} = ${JSON.stringify(Attr,"",2)}`
+let exports = `export {${Object.keys(Attr).join(", ")}}`
   const Output = [
-    ...imports,
+    imports,
+    attributs,
     ui,
-    exports,
+    exports
   ].join('\n');
   return Output
 
