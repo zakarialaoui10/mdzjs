@@ -9,9 +9,8 @@ import remarkFrontmatter from 'remark-frontmatter';
 const parseMDZ = (markdown) => unified().use(remarkParse).use(remarkFrontmatter).parse(markdown);
 
 const processMDZ = (markdown) => {
-  const importRegex = /^import\s+.+from\s+.+;$/gm;
-  
-  let imports = ['import {Flex, HTMLWrapper} from "ziko"'];
+  const importRegex = /^\s*import\s+[^;]+;$/gm
+  let imports = ['import {h, Flex, HTMLWrapper} from "ziko"'];
   let frontmatter = {};
   let cleanedMarkdown = markdown;
 
@@ -31,53 +30,53 @@ const transformMDZ = (markdownAST) => {
       }
       case 'paragraph' : {
         const childNodes = node.children.map(transformNode).join(', ');
-        return `tag('p', {}, ${childNodes})` 
+        return `h('p', {}, ${childNodes})` 
       }
       case 'heading' : {
         const childNodes = node.children.map(transformNode).join(', ');
-        return `tag('h${node.depth}', {}, ${childNodes})`;
+        return `h('h${node.depth}', {}, ${childNodes})`;
       }
       case 'strong': {
         const childNodes = node.children.map(transformNode).join(', ');
-        return `tag('strong', {}, ${childNodes})`;
+        return `h('strong', {}, ${childNodes})`;
       }
 
       case 'emphasis': {
         const childNodes = node.children.map(transformNode).join(', ');
-        return `tag('em', {}, ${childNodes})`;
+        return `h('em', {}, ${childNodes})`;
       }
 
       case 'link': {
         const childNodes = node.children.map(transformNode).join(', ');
-        return `tag('a', { href: "${node.url}" }, ${childNodes})`;
+        return `h('a', { href: "${node.url}" }, ${childNodes})`;
       }
 
       case 'image': {
-        return `tag('img', { src: "${node.url}", alt: "${node.alt || ''}" })`;
+        return `h('img', { src: "${node.url}", alt: "${node.alt || ''}" })`;
       }
 
       case 'list': {
         const listTag = node.ordered ? 'ol' : 'ul';
         const childNodes = node.children.map(transformNode).join(', ');
-        return `tag('${listTag}', {}, ${childNodes})`;
+        return `h('${listTag}', {}, ${childNodes})`;
       }
 
       case 'listItem': {
         const childNodes = node.children.map(transformNode).join(', ');
-        return `tag('li', {}, ${childNodes})`;
+        return `h('li', {}, ${childNodes})`;
       }
 
       case 'code': {
         const language = node.lang ? `, { 'data-lang': '${node.lang}' }` : '';
-        return `tag('pre', {}, tag('code'${language}, {}, ${JSON.stringify(node.value)}))`;
+        return `h('pre', {}, h('code'${language}, {}, ${JSON.stringify(node.value)}))`;
       }
 
       case 'blockquote': {
         const childNodes = node.children.map(transformNode).join(', ');
-        return `tag('blockquote', {}, ${childNodes})`;
+        return `h('blockquote', {}, ${childNodes})`;
       }
       case 'thematicBreak': {
-        return `tag('hr', {}, '')`;
+        return `h('hr', {}, '')`;
       }
       case 'html' : {
         const component = node.value.trim();
@@ -120,13 +119,8 @@ const transformMDZ = (markdownAST) => {
 const transpileMDZ= markdown =>{
   const { imports, cleanedMarkdown } = processMDZ(markdown);
   const ast = parseMDZ(cleanedMarkdown);
-  // console.log({im : ast.data})
   const {body,fm} = transformMDZ(ast);
   const {__Props__, ...Attr} = fm
-  // console.log({
-  //   body,
-  //   fm
-  // })
   const defaultProps = __Props__
     ? Object.entries(__Props__)
         .map(([key, value]) => `${key} = ${JSON.stringify(value)}`)
@@ -134,13 +128,9 @@ const transpileMDZ= markdown =>{
     : '';
 let ui = `
 const __items__ = [];
-const tag = (...arg) =>  {
-  console.log(arg)
-  return arg
-}
 ${body}
-console.log({__items__})
-const UI = (${defaultProps ? `{${defaultProps}}={}`: ""}) => Flex(...__items__);
+// console.log({__items__})
+const UI = (${defaultProps ? `{${defaultProps}}={}`: ""}) => Flex(...__items__).vertical(0, 0);
 export default UI
 `
 let attributs = `const {${Object.keys(Attr).join(",")}} = ${JSON.stringify(Attr,"",2)}`

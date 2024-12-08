@@ -12,7 +12,6 @@
     "vite": "^5.4.8"
   },
   "dependencies": {
-    "ziko": "^0.0.20",
     "ziko-gl": "^0.0.3"
   }
 }

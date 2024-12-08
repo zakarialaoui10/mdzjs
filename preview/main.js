@@ -10,8 +10,7 @@
 //     fontFamily : "Cheeronsta",
 //     background : background ?? "orange"
 // }).vertical(-1, "space-around")
-console.log(1)
+// console.log(1)
 import UI,{title} from "./test.mdz"
-console.log({title})
-console.log(UI)
-UI()
+globalThis.app =UI()
+console.log(app)

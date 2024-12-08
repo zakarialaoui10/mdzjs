@@ -6,9 +6,9 @@ __Props__ : {
     c : 10
 }
 ---
-<script>
-    const {cos} = Math
-</script>
+
+import InteractiveBlock from "./InteractiveBlock.js";
+
 Hello World {cos(0)}
 
 Hello {title}
@@ -17,10 +17,8 @@ Hello {title}
     var a = 1000
     const b = ()=> Math.random()
 
-    // if(1){
-    //     <Buuton />
-    // }
 </script>
 
 test {a}
 
+<InteractiveBlock data="Hello  from MDZ" color="cyan"/>
