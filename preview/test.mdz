@@ -7,18 +7,27 @@ __Props__ : {
 }
 ---
 
+import {cos} from "ziko";
 import InteractiveBlock from "./InteractiveBlock.js";
 
-Hello World {cos(0)}
+Hello World {cos(0)} MMM
 
 Hello {title}
 
 <script>
     var a = 1000
     const b = ()=> Math.random()
-
 </script>
 
 test {a}
 
 <InteractiveBlock data="Hello  from MDZ" color="cyan"/>
+
+import Hi from "./Hi.js";
+
+- <Hi txt="Messi" color="red"/> 10
+- <Hi txt="Messi" color="red"/> 
+- <Hi txt="Messi" color="red"/> 
+
+
+

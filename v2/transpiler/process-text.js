@@ -38,9 +38,9 @@ function processText(str) {
         }
       }
     }  
-    // if (currentText) {
-    //   result.push(currentText);
-    // }
+    if (currentText) {
+      result.push(currentText);
+    }
     return result.map(n=>typeof(n)==="string"?`"${n}"`:n.value);
   }
 export{

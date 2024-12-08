@@ -26,10 +26,13 @@ const transformMDZ = (markdownAST) => {
     switch(node.type){
       case 'text' : {
         const text = node.value;
+        console.log({pr : processText(text)})
         return processText(text)
       }
       case 'paragraph' : {
+        // console.log({node : node.children})
         const childNodes = node.children.map(transformNode).join(', ');
+        // console.log({childNodes})
         return `h('p', {}, ${childNodes})` 
       }
       case 'heading' : {
