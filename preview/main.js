@@ -12,5 +12,7 @@
 // }).vertical(-1, "space-around")
 // console.log(1)
 import UI,{title} from "./test.mdz"
-globalThis.app =UI()
+globalThis.app =UI().vertical(-1, 0).style({border :"1px darkblue solid"}).style({
+    padding : "15px"
+})
 console.log(app)

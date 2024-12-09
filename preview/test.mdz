@@ -9,8 +9,9 @@ __Props__ : {
 
 import {cos} from "ziko";
 import InteractiveBlock from "./InteractiveBlock.js";
+import Scene from "./Scene.js";
 
-Hello World {cos(0)} MMM
+Hello World {cos(0)}
 
 Hello {title}
 
@@ -25,9 +26,27 @@ test {a}
 
 import Hi from "./Hi.js";
 
-- <Hi txt="Messi" color="red"/> 10
+- <Hi txt="Messi" color="red"/> 
 - <Hi txt="Messi" color="red"/> 
 - <Hi txt="Messi" color="red"/> 
 
+
+- <Scene data="h"/> 
+
+<!-- {p}
+
+# Test H1
+# Test H1 with Expression 1+1 = {1+1}
+# Test H1 With IIFE {(()=>Math.random())()}
+# Test H1 With <Hi txt="zikojs element" color="red"/> 
+
+
+<script>
+    let x = [0, PI/6, PI/4, PI/2, PI]
+    let y = cos(x)
+    import {sin} from "ziko"
+</script>
+
+- **cos(x[0])** : <Hi txt={1+1} />
 
 

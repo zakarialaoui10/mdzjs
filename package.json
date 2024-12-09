@@ -24,13 +24,12 @@
   "license": "MIT",
   "dependencies": {
     "front-matter": "^4.0.2",
-    "marked": "^14.1.2",
     "remark-frontmatter": "^5.0.0",
     "remark-parse": "^11.0.0",
     "rollup": "^4.24.0",
     "unified": "^11.0.5",
     "yaml": "^2.6.1",
-    "ziko": "^0.0.21"
+    "ziko": "^0.0.22"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.0",
