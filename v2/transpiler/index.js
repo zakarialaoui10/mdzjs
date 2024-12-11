@@ -5,8 +5,9 @@ import { jsx2js } from './jsx2js.js';
 import { processText } from "./process-text.js"
 import { parse as parseYaml } from 'yaml'; 
 import remarkFrontmatter from 'remark-frontmatter';
+import remarkGFM from "remark-gfm"
 
-const parseMDZ = (markdown) => unified().use(remarkParse).use(remarkFrontmatter).parse(markdown);
+const parseMDZ = (markdown) => unified().use(remarkParse).use(remarkGFM).use(remarkFrontmatter).parse(markdown);
 
 const processMDZ = (markdown) => {
   const importRegex = /^\s*import\s+[^;]+;$/gm
@@ -26,13 +27,11 @@ const transformMDZ = (markdownAST) => {
     switch(node.type){
       case 'text' : {
         const text = node.value;
-        console.log({pr : processText(text)})
+        // console.log({pr : processText(text)})
         return processText(text)
       }
       case 'paragraph' : {
-        // console.log({node : node.children})
         const childNodes = node.children.map(transformNode).join(', ');
-        // console.log({childNodes})
         return `h('p', {}, ${childNodes})` 
       }
       case 'heading' : {
@@ -81,14 +80,32 @@ const transformMDZ = (markdownAST) => {
       case 'thematicBreak': {
         return `h('hr', {}, '')`;
       }
+      case 'table': {
+        const headerRows = node.children[0].children.map(transformNode).join(', ');
+        const bodyRows = node.children.slice(1).map(transformNode).join(', ');
+        const thead = `h('thead', {}, h('tr', {}, ${headerRows})`;
+        const tbody = `h('tbody', {}, ${bodyRows})`
+        return `h('table', {}, ${thead}), ${tbody}).style({border : "1px solid darkblue", borderCollapse: "collapse"})`;
+      }
+      case 'tableRow': {
+        const cells = node.children.map(transformNode).join(', ');
+        return `h('tr', {}, ${cells}).style({border : "1px solid darkblue", borderCollapse: "collapse"})`;
+      }
+      case 'tableCell': {
+        const childNodes = node.children.map(transformNode).join(', ');
+        return `h('td', {}, ${childNodes}).style({border : "1px solid darkblue", borderCollapse: "collapse", padding : "5px"})`;
+      }
       case 'html' : {
         const component = node.value.trim();
         const type = getComponentType(component);
         switch (type) {
           case 'jsx':
             return ` ${jsx2js(component.replaceAll("\n",""))}`;
-          case 'html':
-            return ` HTMLWrapper("${component}")`;
+          case 'html':{
+            return ` HTMLWrapper("${component}")`
+
+            // To be replaced by HTML Parser
+          }
           case 'script' : return {
             type : "script",
             value : `${component.replace(/<script[^>]*>/g, '').replace(/<\/script>/g, '').trim()}`
@@ -112,9 +129,8 @@ const transformMDZ = (markdownAST) => {
       mdBody.push(node); 
     }
   });
-
   return {
-    fm : parseYaml(fm[0].value),
+    fm : fm[0] ? parseYaml(fm[0].value) : {},
     body : mdBody.map(transformNode).map(n=>n instanceof Object? n.value: `__items__.push(${n})`).join("\n")
   }
 };

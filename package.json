@@ -1,6 +1,6 @@
 {
   "name": "mdzjs",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -24,7 +24,9 @@
   "license": "MIT",
   "dependencies": {
     "front-matter": "^4.0.2",
+    "htmlparser2": "^9.1.0",
     "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
     "rollup": "^4.24.0",
     "unified": "^11.0.5",

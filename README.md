@@ -22,11 +22,12 @@ export default defineConfig({
 
 ```md
 ---
-modules : 
- - import InteractiveBlock from "./InteractiveBlock.js"
 title : MDZ
 background : tomato
 ---
+
+import InteractiveBlock from "./InteractiveBlock.js";
+
 **MDZ** (Markdown for ***zikojs***) is a format that allows you to append Zikojs Elements directly within Markdown.
 
 It combines the simplicity of Markdown syntax with the power and flexibility of ***Javascript***
@@ -70,8 +71,7 @@ export default ({data, color})=>{
 ```js
 // main.js
 import { useTitle } from "ziko"
-import UI,{attributes} from "./test.mdz"
-const {title, background} = attributes
+import UI,{title, background} from "./test.mdz"
 title && useTitle(title)
 UI().style({
     border : "2px darkblue solid",
