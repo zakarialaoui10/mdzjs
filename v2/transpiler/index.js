@@ -6,6 +6,7 @@ import { processText } from "./process-text.js"
 import { parse as parseYaml } from 'yaml'; 
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGFM from "remark-gfm"
+import { cleanMD } from '../pre-parse/clean-md.js';
 
 const parseMDZ = (markdown) => unified().use(remarkParse).use(remarkGFM).use(remarkFrontmatter).parse(markdown);
 

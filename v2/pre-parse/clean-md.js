@@ -1,48 +1,48 @@
-function cleanMD(str) {
-    const result = [];
-    let currentExpr = '';
-    let currentText = '';
-    let braceCount = 0;
-    for (let i = 0; i < str.length; i++) {
-      const char = str[i];
-      if (char === '{') {
-        if (braceCount === 0 && currentText) {
-          result.push(currentText.trim());
-          currentText = '';
-        }
-        braceCount++;
-        currentExpr += char;
-      } else if (char === '}') {
-        braceCount--;
-        currentExpr += char;
-        if (braceCount === 0) {
-          result.push(cleanExpression(currentExpr));
-          currentExpr = '';
-        }
-      } else {
-        if (braceCount === 0) {
-          currentText += char; 
-        } else {
-          currentExpr += char; 
-        }
+function cleanMD(str, openSign, closeSign) {
+  const result = [];
+  let currentExpr = '';
+  let currentText = '';
+  let braceCount = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    if (char === '{') {
+      if (braceCount === 0 && currentText) {
+        result.push(currentText.trim());
+        currentText = '';
       }
-    }  
-    if (currentText) {
-      result.push(currentText.trim());
+      braceCount++;
+      currentExpr += char;
+    } else if (char === '}') {
+      braceCount--;
+      currentExpr += char;
+      if (braceCount === 0) {
+        result.push(cleanExpression(currentExpr, openSign, closeSign));
+        currentExpr = '';
+      }
+    } else {
+      if (braceCount === 0) {
+        currentText += char; 
+      } else {
+        currentExpr += char; 
+      }
     }
-  
-    return result.join(''); 
+  }  
+  if (currentText) {
+    result.push(currentText.trim());
   }
-  
-  function cleanExpression(block) {
-    const content = block.slice(1, -1);
-    const cleanedContent = content
-      .split('\n')
-      .map(line => line.trim())
-      .filter(line => line)
-      .join('\n');
-    return `{\n${cleanedContent}\n}`;
-  }
+
+  return result.join(''); 
+}
+
+function cleanExpression(block, openSign="", closeSign ="") {
+  const content = block.slice(1, -1);
+  const cleanedContent = content
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => line)
+    .join('\n');
+  return `${openSign}{\n${cleanedContent}\n}${closeSign}`;
+}
   
   // const text = `
   // const obj = {
