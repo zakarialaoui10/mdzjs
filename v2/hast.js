@@ -34,9 +34,12 @@ function transformNode(node) {
         .join(', ');
 
       if (isJSXComponent) {
-        return `${tagName}({${attributes}}, ${childNodes})`;
-      } else {
-        return `tag('${tagName}', {${attributes}}, ${childNodes})`;
+        if(node.children.length > 0) return `${tagName}({${attributes}}, ${childNodes})`
+        return `${tagName}({${attributes}})`;
+      } 
+      else {
+        if(node.children.length > 0) return `tag('${tagName}', {${attributes}}, ${childNodes})`;
+        return `tag('${tagName}', {${attributes}})`
       }
     }
     default:
@@ -54,6 +57,7 @@ const html = `
 <ZikoComp test=1>
 <p> Hi </p>
 </ZikoComp>
+<Void />
 `.trim();
 
 const ast = parseDocument(html, { lowerCaseTags: false }); 
