@@ -1,6 +1,13 @@
 import { transpileMDZ } from "./transpiler/index.js";
 
 const Markdown = `
+---
+title : hi
+__Props__ :
+  m : 1
+ 
+---
+
 # Hi 
 
 {

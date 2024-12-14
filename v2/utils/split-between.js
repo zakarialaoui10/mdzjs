@@ -4,23 +4,19 @@ export function splitBetween(input, startToken, endToken) {
     let lastIndex = 0;
   
     input.replace(pattern, (match, content, offset) => {
-      // Add non-matching text as a string object
       if (offset > lastIndex) {
         result.push({
           type: "string",
           value: input.slice(lastIndex, offset),
         });
       }
-      // Add the captured content as an expression object
       result.push({
         type: "expression",
         value: content,
       });
-      // Update the last index to after the match
       lastIndex = offset + match.length;
     });
   
-    // Add any remaining text after the last match as a string object
     if (lastIndex < input.length) {
       result.push({
         type: "string",

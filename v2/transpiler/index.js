@@ -8,7 +8,7 @@ import remarkFrontmatter from 'remark-frontmatter';
 import remarkGFM from "remark-gfm"
 import { cleanMD } from '../pre-parse/clean-md.js';
 
-const parseMDZ = (markdown) => unified().use(remarkParse).use(remarkGFM).use(remarkFrontmatter).parse(markdown);
+const parseMDZ = (markdown) => unified().use(remarkParse).use(remarkGFM).use(remarkFrontmatter, ['yaml']).parse(markdown);
 
 const processMDZ = (markdown) => {
   const importRegex = /^\s*import\s+[^;]+;$/gm
@@ -28,7 +28,6 @@ const transformMDZ = (markdownAST) => {
     switch(node.type){
       case 'text' : {
         const text = node.value;
-        // console.log({pr : processText(text)})
         return processText(text)
       }
       case 'paragraph' : {
@@ -79,7 +78,7 @@ const transformMDZ = (markdownAST) => {
         return `h('blockquote', {}, ${childNodes})`;
       }
       case 'thematicBreak': {
-        return `h('hr', {}, '')`;
+        return `h('hr', {})`;
       }
       case 'table': {
         const headerRows = node.children[0].children.map(transformNode).join(', ');
@@ -146,21 +145,23 @@ const transpileMDZ= markdown =>{
         .map(([key, value]) => `${key} = ${JSON.stringify(value)}`)
         .join(', ')
     : '';
-let ui = `
-const __items__ = [];
+    
+console.log({defaultProps : fm})
+let ui = `const __items__ = [];
 ${body}
 // console.log({__items__})
 const UI = (${defaultProps ? `{${defaultProps}}={}`: ""}) => Flex(...__items__).vertical(0, 0);
 export default UI
 `
-let attributs = `const {${Object.keys(Attr).join(",")}} = ${JSON.stringify(Attr,"",2)}`
-let exports = `export {${Object.keys(Attr).join(", ")}}`
+const AttrFounded = Object.keys(Attr).length > 0
+let attributs = AttrFounded ? `const {${Object.keys(Attr).join(",")}} = ${JSON.stringify(Attr,"",2)}` : null
+let exports = AttrFounded ? `export {${Object.keys(Attr).join(", ")}}` : null
   const Output = [
     imports,
     attributs,
     ui,
-    exports
-  ].join('\n');
+    exports,
+  ].filter(Boolean).join('\n');
   return Output
 
 }

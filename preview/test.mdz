@@ -6,15 +6,16 @@ __Props__ : {
     c : 10
 }
 ---
-
+<script>
 import {cos} from "ziko";
 import InteractiveBlock from "./InteractiveBlock.js";
 import Scene from "./Scene.js";
+let aa="{"
+</script>
 
-Hello World {cos(0)}
+Hello World {cos(0)} LL {aa} {a}
 
 Hello {title}
-
 <script>
     var a = 1000
     const b = ()=> Math.random()
@@ -57,3 +58,4 @@ import Hi from "./Hi.js";
 -->
 
 www.koora.com
+
