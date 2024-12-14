@@ -13,7 +13,14 @@ export const b = 10;
 
 Hello {name} mm {m} []()
 
-<B exp={1+1} str="kk"/>
+<B exp={1+1} str="kk">
+  # hi
+  # hi
+</B>
+
+<p>
+ Hi
+</p>
 
 
 `

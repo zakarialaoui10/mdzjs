@@ -80,29 +80,14 @@ const processMDZ = (markdownAST) => {
         }
         case 'mdxJsxFlowElement':{
           const {name, attributes, children} = node;
-          processAttribute(attributes)
-          // console.log({attributes : attributes[0].value})
-          return `${name}()`
+          const childNodes = children.map(transformNode).join(', ');
+          console.log({childNodes, name})
+          const {length} = childNodes;
+          const isJsx = name.toLowerCase() !== name ;
+          return isJsx
+                   ?`${name}(${processAttribute(attributes)}${length > 0?`, ${childNodes}`:""})`
+                   :`h(${name}, ${processAttribute(attributes)}${length > 0?`, ${childNodes}`:""})`
         }
-        // case 'html' : {
-        //   const component = node.value.trim();
-        //   const type = getComponentType(component);
-        //   switch (type) {
-        //     case 'jsx':
-        //       return ` ${jsx2js(component.replaceAll("\n",""))}`;
-        //     case 'html':{
-        //       return ` HTMLWrapper("${component}")`
-  
-        //       // To be replaced by HTML Parser
-        //     }
-        //     case 'script' : return {
-        //       type : "script",
-        //       value : `${component.replace(/<script[^>]*>/g, '').replace(/<\/script>/g, '').trim()}`
-        //     };
-        //     default:
-        //       return null;
-        //   }
-        // }
       }
       return 'null';
     };
@@ -120,7 +105,7 @@ const processMDZ = (markdownAST) => {
         default : statements.push(transformNode(node)) ; break;
       }
     });
-    // console.log({statements})
+    console.log({statements})
     return {
       fm ,
       body : mdBody.map(transformNode).map(n=>n instanceof Object? n.value: `__items__.push(${n})`).join("\n"),

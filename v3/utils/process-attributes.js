@@ -9,8 +9,5 @@ export const processAttribute = (attributes) =>{
             isExpression : typeof value !== "string"
         })
     }
-    // console.log({
-    //     attr :`{${attr.map(({name, value, isExpression})=>`${name} : ${isExpression ? value : `"${value}"`}`).join(", ")}}` 
-    // })
-    return `{${attr.map(({name, value, isExpression})=>`${name} : ${isExpression ? value : `"${value}"`}`).join(", ")}}` 
+    return `{${attr.map(({name, value, isExpression})=>`${name}:${isExpression ? value : `"${value}"`}`).join(", ")}}` 
 }
