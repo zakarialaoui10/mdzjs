@@ -1,9 +1,16 @@
-import { processAttribute } from "../utils/process-attributes.js";
+// import { processAttribute } from "../utils/process-attributes.js";
+import { 
+  componentType,
+  processAttribute
+} from "../utils/index.js"
 const processMDZ = (markdownAST) => {
     const transformNode = (node) => {
       switch(node.type){
         case 'mdxjsEsm' : {
-          return node.value
+          return {
+            type : "script",
+            value : node.value
+          }
         }
         case 'text' : {
           const text = node.value;
@@ -13,13 +20,13 @@ const processMDZ = (markdownAST) => {
           const {value} = node
           return value
         }
-        case 'paragraph' : {
-          const childNodes = node.children.map(transformNode).join(', ');
-          return `h('p', {}, ${childNodes})` 
-        }
         case 'heading' : {
           const childNodes = node.children.map(transformNode).join(', ');
           return `h('h${node.depth}', {}, ${childNodes})`;
+        }
+        case 'paragraph' : {
+          const childNodes = node.children.map(transformNode).join(', ');
+          return `h('p', {}, ${childNodes})` 
         }
         case 'strong': {
           const childNodes = node.children.map(transformNode).join(', ');
@@ -81,12 +88,19 @@ const processMDZ = (markdownAST) => {
         case 'mdxJsxFlowElement':{
           const {name, attributes, children} = node;
           const childNodes = children.map(transformNode).join(', ');
-          console.log({childNodes, name})
-          const {length} = childNodes;
-          const isJsx = name.toLowerCase() !== name ;
-          return isJsx
-                   ?`${name}(${processAttribute(attributes)}${length > 0?`, ${childNodes}`:""})`
-                   :`h(${name}, ${processAttribute(attributes)}${length > 0?`, ${childNodes}`:""})`
+          const hasChildren = childNodes.length > 0;
+          switch(componentType(name)){
+            case "jsx" : return `${name}(${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
+            case "html" : return `h(${name}, ${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
+            case "script" : {
+              const statements = [];
+              for(let i=0; i<node.children.length; i++) statements.push(node.children[i].children[0].value)
+              return {
+                type : "script",
+                value : statements.join("\n")
+              }
+            }
+          }
         }
       }
       return 'null';
@@ -98,10 +112,10 @@ const processMDZ = (markdownAST) => {
     const statements = []
   
     markdownAST.children.forEach((node) => {
-      // console.log({type : node.type})
+      console.log({type : node.type})
       switch(node.type){
         case 'yaml' : statements.push(node); break;
-        case 'mdxjsEsm' : statements.push(node.value); break;
+        // case 'mdxjsEsm' : statements.push(node); break;
         default : statements.push(transformNode(node)) ; break;
       }
     });

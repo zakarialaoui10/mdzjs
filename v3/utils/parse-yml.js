@@ -1,6 +1,6 @@
 import { parse } from 'yaml'; 
 
-const useYml = yml => {
+const parseYml = yml => {
     const fm = parse(yml) ;
     const {__props__, ...attributes} = fm
     return {
@@ -9,4 +9,4 @@ const useYml = yml => {
     }
 }
 
-export {useYml}
+export {parseYml}
