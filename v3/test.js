@@ -13,13 +13,13 @@ export const b = 10;
 
 Hello {name} mm {m} []()
 
-<B l={1+1} />
+<B exp={1+1} str="kk"/>
 
 
 `
 const ast = parseMDZ(md)
-console.log(ast.children.at(-1))
-// const js = transpileMDZ(md)
+// console.log(ast.children.at(-1))
+const js = transpileMDZ(md)
 // console.log(ast)
 // console.log(JSON.stringify(ast, null, 2))
 

@@ -1,3 +1,4 @@
+import { processAttribute } from "../utils/process-attributes.js";
 const processMDZ = (markdownAST) => {
     const transformNode = (node) => {
       switch(node.type){
@@ -77,6 +78,12 @@ const processMDZ = (markdownAST) => {
           const childNodes = node.children.map(transformNode).join(', ');
           return `h('td', {}, ${childNodes}).style({border : "1px solid darkblue", borderCollapse: "collapse", padding : "5px"})`;
         }
+        case 'mdxJsxFlowElement':{
+          const {name, attributes, children} = node;
+          processAttribute(attributes)
+          // console.log({attributes : attributes[0].value})
+          return `${name}()`
+        }
         // case 'html' : {
         //   const component = node.value.trim();
         //   const type = getComponentType(component);
@@ -106,14 +113,14 @@ const processMDZ = (markdownAST) => {
     const statements = []
   
     markdownAST.children.forEach((node) => {
-      console.log({type : node.type})
+      // console.log({type : node.type})
       switch(node.type){
         case 'yaml' : statements.push(node); break;
         case 'mdxjsEsm' : statements.push(node.value); break;
         default : statements.push(transformNode(node)) ; break;
       }
     });
-    console.log({statements})
+    // console.log({statements})
     return {
       fm ,
       body : mdBody.map(transformNode).map(n=>n instanceof Object? n.value: `__items__.push(${n})`).join("\n"),
