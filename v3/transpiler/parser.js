@@ -9,7 +9,7 @@ const parseMDZ = (markdown) => unified()
     .use(remarkParse)
     // .use(remarkStringify)
     .use(remarkGFM)
-    .use(remarkFrontmatter, ['toml'])
+    .use(remarkFrontmatter, ['yaml','toml'])
     .use(remarkMdx)
     .parse(markdown)
 

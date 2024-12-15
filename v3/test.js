@@ -2,9 +2,9 @@
 import { parseMDZ, transpileMDZ } from "./transpiler/index.js";
 import { parseYml } from "./utils/parse-yml.js";
 
-const md = `
----
+const md = `---
 title : get started
+id : 1
 ---
 
 <script>
@@ -24,12 +24,12 @@ Hello {name} mm {m} []()
   # hi
 </B>
 
-<p>
- Hi
-</p>
-
-
 `
+
+// const md = `---
+// title : Hi
+// ---
+// `
 const ast = parseMDZ(md)
 // console.log(ast.children.at(-1))
 const js = transpileMDZ(md)

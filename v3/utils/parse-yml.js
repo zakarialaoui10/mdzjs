@@ -1,12 +1,8 @@
 import { parse } from 'yaml'; 
 
 const parseYml = yml => {
-    const fm = parse(yml) ;
-    const {__props__, ...attributes} = fm
-    return {
-        __props__,
-        attributes
-    }
+    const attributes = parse(yml) ;
+    return `{${Object.entries(attributes).map(([key, value]) => `${key} = ${JSON.stringify(value)}`).join(", ")}}={}`
 }
 
 export {parseYml}

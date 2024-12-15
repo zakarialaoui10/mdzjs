@@ -1,10 +1,12 @@
 // import { processAttribute } from "../utils/process-attributes.js";
 import { 
   componentType,
-  processAttribute
+  processAttribute,
+  parseYml
 } from "../utils/index.js"
 const processMDZ = (markdownAST) => {
     const transformNode = (node) => {
+      // console.log({type : node.type})
       switch(node.type){
         case 'mdxjsEsm' : {
           return {
@@ -85,6 +87,12 @@ const processMDZ = (markdownAST) => {
           const childNodes = node.children.map(transformNode).join(', ');
           return `h('td', {}, ${childNodes}).style({border : "1px solid darkblue", borderCollapse: "collapse", padding : "5px"})`;
         }
+        case 'yaml':{
+          return {
+            type : "yaml",
+            value : parseYml(node.value)
+          }
+        }
         case 'mdxJsxFlowElement':{
           const {name, attributes, children} = node;
           const childNodes = children.map(transformNode).join(', ');
@@ -108,21 +116,34 @@ const processMDZ = (markdownAST) => {
     let fm = [];
     let esm = [];
     let mdBody = [];
+    let args = ""
 
     const statements = []
-  
     markdownAST.children.forEach((node) => {
-      console.log({type : node.type})
       switch(node.type){
-        case 'yaml' : statements.push(node); break;
+        case 'yaml' : args = transformNode(node).value; break;
         // case 'mdxjsEsm' : statements.push(node); break;
         default : statements.push(transformNode(node)) ; break;
       }
     });
+
+    const body = [
+      'import {h, Flex} from "ziko"',
+      `export default (${args})=>{`,
+      'const __items__ = []'
+    ]
     console.log({statements})
+    for(let i=0; i<statements.length; i++){
+      if(typeof statements[i]==="string") body.push(`__items__.push(${statements[i]})`)
+      else body.push(statements[i].value)
+    }
+    body.push("const UI = Flex(...__items__).vertical(0, 0)")
+    body.push("return UI }")
+    console.log(body.join("\n"))
+    console.log({args})
     return {
       fm ,
-      body : mdBody.map(transformNode).map(n=>n instanceof Object? n.value: `__items__.push(${n})`).join("\n"),
+      body : body.join("\n"),
       esm
     }
   };
