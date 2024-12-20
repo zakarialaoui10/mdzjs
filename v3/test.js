@@ -33,7 +33,7 @@ Hello {name} mm {m} []()
 const ast = parseMDZ(md)
 // console.log(ast.children.at(-1))
 const js = transpileMDZ(md)
-// console.log(ast)
+console.log(js)
 // console.log(JSON.stringify(ast, null, 2))
 
 // parseYml('a : 1\n__props__ : \n d : 2\n e : 1')

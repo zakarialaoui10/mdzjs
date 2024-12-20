@@ -1,12 +1,10 @@
-// import { processAttribute } from "../utils/process-attributes.js";
 import { 
   componentType,
   processAttribute,
   parseYml
 } from "../utils/index.js"
-const processMDZ = (markdownAST) => {
+const processMDZAST = (markdownAST) => {
     const transformNode = (node) => {
-      // console.log({type : node.type})
       switch(node.type){
         case 'mdxjsEsm' : {
           return {
@@ -105,6 +103,7 @@ const processMDZ = (markdownAST) => {
               for(let i=0; i<node.children.length; i++) statements.push(node.children[i].children[0].value)
               return {
                 type : "script",
+                isScript : true,
                 value : statements.join("\n")
               }
             }
@@ -113,40 +112,27 @@ const processMDZ = (markdownAST) => {
       }
       return 'null';
     };
-    let fm = [];
     let esm = [];
-    let mdBody = [];
     let args = ""
 
     const statements = []
     markdownAST.children.forEach((node) => {
       switch(node.type){
         case 'yaml' : args = transformNode(node).value; break;
-        // case 'mdxjsEsm' : statements.push(node); break;
-        default : statements.push(transformNode(node)) ; break;
+        case 'mdxjsEsm' : esm.push(node.value); break;
+        default : {
+          const Transformed = transformNode(node);
+          if(Transformed.isScript) statements.push(Transformed.value);
+          else statements.push(`__items__.push(${Transformed})`)
+        }
       }
     });
-
-    const body = [
-      'import {h, Flex} from "ziko"',
-      `export default (${args})=>{`,
-      'const __items__ = []'
-    ]
-    console.log({statements})
-    for(let i=0; i<statements.length; i++){
-      if(typeof statements[i]==="string") body.push(`__items__.push(${statements[i]})`)
-      else body.push(statements[i].value)
-    }
-    body.push("const UI = Flex(...__items__).vertical(0, 0)")
-    body.push("return UI }")
-    console.log(body.join("\n"))
-    console.log({args})
     return {
-      fm ,
-      body : body.join("\n"),
-      esm
+      args,
+      esm,
+      statements
     }
   };
 export {
-    processMDZ
+    processMDZAST
 }
