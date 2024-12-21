@@ -5,6 +5,9 @@ import { parseYml } from "./utils/parse-yml.js";
 const md = `---
 title : get started
 id : 1
+__props__ : 
+ color : red
+ size : 10
 ---
 
 <script>

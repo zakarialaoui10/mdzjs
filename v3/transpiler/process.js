@@ -86,9 +86,13 @@ const processMDZAST = (markdownAST) => {
           return `h('td', {}, ${childNodes}).style({border : "1px solid darkblue", borderCollapse: "collapse", padding : "5px"})`;
         }
         case 'yaml':{
+          const {props, attrs} = parseYml(node.value)
+          // console.log({props, attrs})
           return {
             type : "yaml",
-            value : parseYml(node.value)
+            value : parseYml(node.value),
+            props, 
+            attrs
           }
         }
         case 'mdxJsxFlowElement':{
@@ -113,12 +117,17 @@ const processMDZAST = (markdownAST) => {
       return 'null';
     };
     let esm = [];
-    let args = ""
+    let props = "";
+    let attrs = "";
 
     const statements = []
     markdownAST.children.forEach((node) => {
       switch(node.type){
-        case 'yaml' : args = transformNode(node).value; break;
+        case 'yaml' : {
+          const Transformed = transformNode(node).value
+          props = Transformed.props,
+          attrs = Transformed.attrs
+        } break;
         case 'mdxjsEsm' : esm.push(node.value); break;
         default : {
           const Transformed = transformNode(node);
@@ -128,7 +137,8 @@ const processMDZAST = (markdownAST) => {
       }
     });
     return {
-      args,
+      attrs,
+      props,
       esm,
       statements
     }
