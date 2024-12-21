@@ -20,12 +20,19 @@ __props__ :
 import A from "./A"
 export const b = 10;
 
-Hello {name} mm {m} []()
+Hello {name} mm {m} [mmmm](kkk)
 
 <B exp={1+1} str="kk">
   # hi
   # hi
 </B>
+
+# Hi 
+## HI {Ziko}
+
+
+|A|B|
+|-|-|
 
 `
 
