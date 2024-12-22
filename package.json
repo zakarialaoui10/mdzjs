@@ -14,12 +14,16 @@
     "import": "./src/index.js"
   },
   "./vite": {
-    "import": "./src/vite/index.js"
+    "import": "./src/bundlers/vite.js"
   },
-  "author": "",
+  "author": "zakaria elalaoui",
   "keywords": [
     "zikojs",
-    "zikojs-addons"
+    "zikojs-addons",
+    "markdown",
+    "remark",
+    "mdx",
+    "preprocessor"
   ],
   "license": "MIT",
   "dependencies": {
