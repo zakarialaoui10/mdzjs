@@ -1,3 +1,6 @@
+> [!NOTE]  
+> This project is part of the [ZikoJS](https://github.com/zakarialaoui10/ziko.js) ecosystem.
+
 # Markdown for [Zikojs](https://github.com/zakarialaoui10/ziko.js)
 
 ## Install 
