@@ -4,6 +4,7 @@ import {
   parseYml,
   hyperscript
 } from "../utils/index.js"
+import hljs from "highlight.js"
 const processMDZAST = (markdownAST) => {
     const transformNode = (node) => {
       switch(node.type){
@@ -68,11 +69,14 @@ const processMDZAST = (markdownAST) => {
   
         case 'code': {
           const language = node.lang ? `{ 'data-lang': '${node.lang}' }` : '';
+          const highlightedCode = hljs.highlightAuto(node.value, [node.lang || '']).value;
+          const formatedCode = highlightedCode.replace(/(\r\n|\n|\r)/g, "<br>")    
           const out =  hyperscript("pre", "{}", hyperscript(
             "code",
             language,
             JSON.stringify(node.value)
           ));
+          return `HTMLWrapper('<pre>${formatedCode}</pre>')`
           return out
         }
   

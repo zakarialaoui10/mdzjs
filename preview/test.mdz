@@ -19,5 +19,8 @@ Hello **{name}**
 <section class="code">
 ```js
  console.log(1)
+ function A(){
+        return 10
+ }
 ```
 </section>

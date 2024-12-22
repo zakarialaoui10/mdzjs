@@ -6,7 +6,7 @@ const transpileMDZ=(Markdown)=>{
     const {attrs, props, esm, statements}= processMDZAST(ast)
     console.log({props})
     const body = [
-        'import {h, Flex} from "ziko"',
+        'import {h, HTMLWrapper, Flex} from "ziko"',
         attrs,
         ...esm,
         `export default (${props})=>{`,
