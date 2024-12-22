@@ -4,6 +4,7 @@ import { processMDZAST } from "./process.js";
 const transpileMDZ=(Markdown)=>{
     const ast = parseMDZ(Markdown);
     const {attrs, props, esm, statements}= processMDZAST(ast)
+    console.log({props})
     const body = [
         'import {h, Flex} from "ziko"',
         attrs,

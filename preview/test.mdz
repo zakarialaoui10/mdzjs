@@ -1,61 +1,23 @@
 ---
-title : "MDZ"
+title : "MDZ Overview"
 background : "red"
-__Props__ : {
-    a : 1,
-    c : 10
+__props__ : {
+    name : World KKK
 }
 ---
-<script>
-import {cos} from "ziko";
-import InteractiveBlock from "./InteractiveBlock.js";
-import Scene from "./Scene.js";
-let aa="{"
-</script>
 
-Hello World {cos(0)} LL {aa} {a}
+# Hello world 
 
-Hello {title}
-<script>
-    var a = 1000
-    const b = ()=> Math.random()
-</script>
+Hello **{name}**
 
-test {a}
-
-<InteractiveBlock data="Hello  from MDZ" color="cyan"/>
-
-import Hi from "./Hi.js";
-
-- <Hi txt="Messi" color="red"/> 
-- <Hi txt="Messi" color="red"/> 
-- <Hi txt="Messi" color="red"/> 
-
-
-- <Scene data="h"/> 
-
-|A|B|
+|Addon|Dependncies|
 |-|-|
-|1|2|
+|ziko-gl|threejs|
+|ziko-code|codemirror|
+|ziko-lottie|lottie-web|
 
-
-<!-- {p}
-
-# Test H1
-# Test H1 with Expression 1+1 = {1+1}
-# Test H1 With IIFE {(()=>Math.random())()}
-# Test H1 With <Hi txt="zikojs element" color="red"/> 
-
-
-<script>
-    let x = [0, PI/6, PI/4, PI/2, PI]
-    let y = cos(x)
-    import {sin} from "ziko"
-</script>
-
-- **cos(x[0])** : <Hi txt={1+1} />
-
--->
-
-www.koora.com
-
+<section class="code">
+```js
+ console.log(1)
+```
+</section>

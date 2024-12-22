@@ -67,13 +67,13 @@ const processMDZAST = (markdownAST) => {
         }
   
         case 'code': {
-          const language = node.lang ? `, { 'data-lang': '${node.lang}' }` : '';
-          return hyperscript("pre", "{}", hyperscript(
+          const language = node.lang ? `{ 'data-lang': '${node.lang}' }` : '';
+          const out =  hyperscript("pre", "{}", hyperscript(
             "code",
             language,
             JSON.stringify(node.value)
           ));
-          // return `h('pre', {}, h('code'${language}, {}, ${JSON.stringify(node.value)}))`;
+          return out
         }
   
         case 'blockquote': {
@@ -116,9 +116,11 @@ const processMDZAST = (markdownAST) => {
           const {name, attributes, children} = node;
           const childNodes = children.map(transformNode).join(', ');
           const hasChildren = childNodes.length > 0;
+          console.log({name})
+          console.log(componentType(name))
           switch(componentType(name)){
             case "jsx" : return `${name}(${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
-            case "html" : return `h(${name}, ${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
+            case "html" : return `h("${name}", ${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
             case "script" : {
               const statements = [];
               for(let i=0; i<node.children.length; i++) statements.push(node.children[i].children[0].value)
