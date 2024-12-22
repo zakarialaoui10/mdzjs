@@ -50,12 +50,15 @@ import Article,{title} from "./Article.mdz"
 ## Features
 - **Simple Integration :** Write Markdown as usual, and inject Zikojs elements wherever needed.
 - **Extensible :** Create custom interactive components using Zikojs and use them in any Markdown file.
-- **Markdown :**
-- **Frontmatter Support :**
-- **JSX Syntax :** 
-- **Props :**  
-- **ESM :** 
-- **Expressions :** MDZjs allows the use of JavaScript expressions within curly braces, such as Hello {name}. These expressions can include complete JavaScript programs, provided they are enclosed in an expression that evaluates to a renderable value. For instance, you can use an IIFE in this way :
+- **Reusable :** MDZ exports a default functional component, allowing you to call it multiple times with different data, enabling dynamic and versatile use.
+- **Frontmatter Support :**  Use `YAML` syntax in to include metadata like titles, descriptions, or configurations in your Markdown files, and define props to pass data dynamically to Zikojs components.
+
+- **Markdown :** Use standard Markdown syntax for writing content. 
+- **JSX Syntax :** Write components in JSX within Markdown, enabling easy integration of Zikojs elements with JavaScript and HTML..
+- **Props :** Pass data to components through props, enabling dynamic rendering and customization of content within your Markdown files.
+- **ESM :** Supports ECMAScript Modules (ESM), allowing you to import and export modules
+- **Expressions :** MDZjs lets you use JS expressions inside curly braces, like Hello {name}. 
+These expressions can be full JS programs, as long as they evaluate to something renderable. For example, you can use an IIFE like this:
 ```js
 Hello {(()=>{
     const names = ["world", "everyone"];
@@ -63,8 +66,8 @@ Hello {(()=>{
     return names[Math.floor(Math.random()*length)]
 })()}
 ```
-- **Internal scripts :**  allow you to include JavaScript logic that runs alongside your MDZjs components but unlike expressions is not directly rendered as part of the output.
-They can be used for initializing variables or performing side effects that influence the application but do not produce visual content.
+- **Internal scripts :**  Include JS logic that runs alongside MDZjs components but isn't rendered in the output. 
+They can initialize variables or perform side effects...
 
 ```html
 <script>
@@ -84,83 +87,12 @@ They can be used for initializing variables or performing side effects that infl
  ***Hello {name}***
 </Header>
 ```
+# ⭐️ Show your support
 
+If you appreciate the project, kindly demonstrate your support by giving it a star!<br>
 
-
-<!-- ## Usage 
-
-### Config 
-```js
-import {defineConfig} from "vite"
-import {MDZ} from "mdzjs"
-export default defineConfig({
-    plugins : [
-        MDZ()
-    ]
-})
-```
-
-### Example 
-
-```md
----
-title : MDZ
-background : tomato
----
-
-import InteractiveBlock from "./InteractiveBlock.js";
-
-**MDZ** (Markdown for ***zikojs***) is a format that allows you to append Zikojs Elements directly within Markdown.
-
-It combines the simplicity of Markdown syntax with the power and flexibility of ***Javascript***
-
-Here’s an example of an interactive block rendered within this MDZ file:
-
-<InteractiveBlock data="Hello  from MDZ" color="darkblue"/>
-
-### Features of MDZ:
-1- **Simple Integration :** Write Markdown as usual, and inject ZikoJS elements wherever needed.
-2- **Frontmatter Support :** In this example, the title of the document is set dynamically through the frontmatter.
-
-3- **Extensible :** Create custom components like InteractiveBlock and use them in any Markdown file.
-```
-
-```js
-// InteractiveBlock.js
-import {Flex, input, text} from "ziko"
-export default ({data, color})=>{
-    let txt = text(data).style({color})
-    let inp = input(data).style({
-        padding : "5px",
-        background : "transparent",
-        outline :"none",
-        boxShadow :"1px 1px 1px white",
-        fontSize : "inherit"
-    })
-    inp.onInput(e=>txt.setValue(e.value))
-    return Flex(
-        inp,
-        txt
-    ).vertical(0, "space-around").size("60%").style({
-        border : "2px darkblue solid",
-        padding : "10px",
-        minHeight : "100px",
-        margin : "auto"
-    })
-}
-```
-
-```js
-// main.js
-import { useTitle } from "ziko"
-import UI,{title, background} from "./test.mdz"
-title && useTitle(title)
-UI().style({
-    border : "2px darkblue solid",
-    width : "70%",
-    margin : "auto",
-    padding : "10px",
-    fontFamily : "Cheeronsta",
-    background : background ?? "orange"
-}).vertical(-1, "space-around")
-``` -->
+[![Star](https://img.shields.io/github/stars/zakarialaoui10/mdzjs?style=social)](https://github.com/zakarialaoui10/mdzjs)
+<!--## Financial support-->
+# License 
+This projet is licensed under the terms of MIT License 
+<img src="https://img.shields.io/github/license/zakarialaoui10/zikojs?color=rgb%2820%2C21%2C169%29" width="100" align="right">
