@@ -53,7 +53,7 @@ import Article,{title} from "./Article.mdz"
 - **Markdown :**
 - **Frontmatter Support :**
 - **JSX Syntax :** 
-- **Props :** 
+- **Props :**  
 - **ESM :** 
 - **Expressions :** MDZjs allows the use of JavaScript expressions within curly braces, such as Hello {name}. These expressions can include complete JavaScript programs, provided they are enclosed in an expression that evaluates to a renderable value. For instance, you can use an IIFE in this way :
 ```js
