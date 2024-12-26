@@ -16,11 +16,17 @@ Hello **{name}**
 |ziko-code|codemirror|
 |ziko-lottie|lottie-web|
 
-<section class="code">
 ```js
- console.log(1)
- function A(){
-        return 10
- }
+console.log({a:1})
+fuction B(){
+ return [
+   1,
+   2
+ ]
+}
 ```
-</section>
+
+```py
+ print(10)
+ A=[1,2,3]
+```

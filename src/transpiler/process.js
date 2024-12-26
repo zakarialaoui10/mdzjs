@@ -70,6 +70,7 @@ const processMDZAST = (markdownAST) => {
         case 'code': {
           const language = node.lang ? `{ 'data-lang': '${node.lang}' }` : '';
           const highlightedCode = hljs.highlightAuto(node.value, [node.lang || '']).value;
+          hljs
           const formatedCode = highlightedCode.replace(/(\r\n|\n|\r)/g, "<br>")    
           const out =  hyperscript("pre", "{}", hyperscript(
             "code",
@@ -77,7 +78,7 @@ const processMDZAST = (markdownAST) => {
             JSON.stringify(node.value)
           ));
           return `HTMLWrapper('<pre>${formatedCode}</pre>')`
-          return out
+          // return out
         }
   
         case 'blockquote': {
