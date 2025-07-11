@@ -5,8 +5,11 @@ __props__ : {
     name : World KKK
 }
 ---
+import {Dom} from "./Dom"
 
 # Hello world 
+
+<Dom text="Hello from dom" color="red" />
 
 Hello **{name}**
 
