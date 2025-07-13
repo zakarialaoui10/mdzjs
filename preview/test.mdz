@@ -5,11 +5,13 @@ __props__ : {
     name : World KKK
 }
 ---
-import {Dom} from "./Dom"
+import {Dom} from "./Components/Dom"
+import InteractiveBlock from "./Components/InteractiveBlock.js"
 
 # Hello world 
 
 <Dom text="Hello from dom" color="red" />
+<InteractiveBlock />
 
 Hello **{name}**
 
