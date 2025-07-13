@@ -8,7 +8,7 @@ export const hyperscript = (tag, attrs, children="") => {
         const splitted = splitQuotedLines(children);
         children = insertBetween(splitted, 'h("br")')
         children[children.length - 1] = children.at(-1).slice(0, -3)
-        console.log({children})
+        // console.log({children})
         // console.log({children : children.slice(0, -3)})
     }
     // children = children.slice(0,-3)

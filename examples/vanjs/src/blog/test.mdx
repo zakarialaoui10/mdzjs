@@ -6,6 +6,21 @@ __props__ : {
 }
 ---
 
+import Dom from "../components/comp.js";
+
+export const a = 1;
+
+
+Hello {1+1}
+
+<Dom> 
+*inline* 
+</Dom>
+
+<p>
+** Html **
+</p> 
+
 ## Overview 
 
 Hi 👋 I'm working on a library called [Zikojs](https://github.com/zakarialaoui10/ziko.js), It shares many principles with VanJS especially in terms of **declarative hyperscript-style coding** **Strong 2** 
@@ -53,7 +68,7 @@ This will patch VanJS to automatically unwrap ZikoJS elements when used as child
 > So, practically, all ZikoJS libraries can be considered usable as VanJS libraries and vice versa. 
 
 ## Demo
-```js 
+```javascript
 import van from "vanjs-core";
 import { Flex } from "ziko";
 import { Activity } from "vanjs-lucide";
@@ -77,3 +92,5 @@ This demo illustrates interleaving happening in both directions.
 
 > [!IMPORTANT]  
 > For me, once I finish the documentation, I plan to add VanJS plugins as ZikoJS plugins. Now, I want to add some of my libraries as VanJS plugins as well, but I’m wondering whether I should create independent packages with names prefixed by `van-[plugin]`, or if it’s enough to provide a wrapper—like I did in [p5.wrapper](https://github.com/zakarialaoui10/p5.wrapper)—so users just need to import from `ziko-[plugin]/van` ?
+
+

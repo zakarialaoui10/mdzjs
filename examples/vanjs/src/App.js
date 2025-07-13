@@ -3,6 +3,7 @@ import Counter from "./components/Counter";
 import "./App.css";
 import "ziko-wrapper/van"
 import Blog from "./blog/test.mdx"
+import "highlight.js/styles/1c-light.css"
 
 export const App = () => {
   const { div, h1, img, p, a } = van.tags;

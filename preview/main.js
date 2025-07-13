@@ -6,4 +6,4 @@ UI({name : "from MDZjs"})
     .style({
         border :"1px darkblue solid",
         padding : "15px",
-    })
+})

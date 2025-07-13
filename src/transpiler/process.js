@@ -63,17 +63,16 @@ const processMDZAST = (markdownAST) => {
         }
   
         case 'code': {
-          const language = node.lang ? `{ 'data-lang': '${node.lang}' }` : '';
+          // const language = node.lang ? `{ 'data-lang': '${node.lang}' }` : '';
           const highlightedCode = hljs.highlightAuto(node.value, [node.lang || '']).value;
           // hljs
           const formatedCode = highlightedCode.replace(/(\r\n|\n|\r)/g, "<br>")    
-          const out =  hyperscript("pre", "{}", hyperscript(
-            "code",
-            language,
-            JSON.stringify(node.value)
-          ));
+          // const out =  hyperscript("pre", "{}", hyperscript(
+          //   "code",
+          //   language,
+          //   JSON.stringify(node.value)
+          // ));
           return `HTMLWrapper('<pre>${formatedCode}</pre>')`
-          // return out
         }
   
         case 'blockquote': {
@@ -116,10 +115,12 @@ const processMDZAST = (markdownAST) => {
           const {name, attributes, children} = node;
           const childNodes = children.map(transformNode).join(', ');
           const hasChildren = childNodes.length > 0;
-          console.log({name})
-          console.log(componentType(name))
+          // console.log({name})
+          // console.log(componentType(name))
           switch(componentType(name)){
-            case "jsx" : return `${name}(${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
+            case "jsx" : {
+              return `${name}(${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
+            }
             case "html" : return `h("${name}", ${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
             case "script" : {
               const statements = [];
