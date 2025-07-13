@@ -16,7 +16,8 @@ const processMDZAST = (markdownAST) => {
         }
         case 'text' : {
           const text = node.value;
-          return `"${text}"`
+          const escaped = text.replace(/"/g, '\\"');
+          return `"${escaped}"`;
         }
         case 'mdxTextExpression' : {
           const {value} = node
@@ -25,23 +26,19 @@ const processMDZAST = (markdownAST) => {
         case 'heading' : {
           const childNodes = node.children.map(transformNode).join(', ');
           return hyperscript(`h${node.depth}`,"{}", childNodes);
-          // return `h('h${node.depth}', {}, ${childNodes})`;
         }
         case 'paragraph' : {
           const childNodes = node.children.map(transformNode).join(', ');
           return hyperscript("p","{}", childNodes)
-          // return `h('p', {}, ${childNodes})` 
         }
         case 'strong': {
           const childNodes = node.children.map(transformNode).join(', ');
           return hyperscript("strong","{}", childNodes);
-          // return `h('strong', {}, ${childNodes})`;
         }
   
         case 'emphasis': {
           const childNodes = node.children.map(transformNode).join(', ');
-          return hyperscript("emphasis","{}", childNodes);
-          // return `h('em', {}, ${childNodes})`;
+          return hyperscript("em","{}", childNodes);
         }
   
         case 'link': {
@@ -58,19 +55,17 @@ const processMDZAST = (markdownAST) => {
           const listTag = node.ordered ? 'ol' : 'ul';
           const childNodes = node.children.map(transformNode).join(', ');
           return hyperscript(listTag, "{}", childNodes);
-          // return `h('${listTag}', {}, ${childNodes})`;
         }
   
         case 'listItem': {
           const childNodes = node.children.map(transformNode).join(', ');
           return hyperscript("li", "{}", childNodes);
-          // return `h('li', {}, ${childNodes})`;
         }
   
         case 'code': {
           const language = node.lang ? `{ 'data-lang': '${node.lang}' }` : '';
           const highlightedCode = hljs.highlightAuto(node.value, [node.lang || '']).value;
-          hljs
+          // hljs
           const formatedCode = highlightedCode.replace(/(\r\n|\n|\r)/g, "<br>")    
           const out =  hyperscript("pre", "{}", hyperscript(
             "code",

@@ -15,3 +15,65 @@ It shares many principles with VanJS especially in terms of **declarative hypers
 
 - p('l')
 
+p("jjj")
+
+## Overview 
+
+Hi 👋 I'm working on a library called [Zikojs](https://github.com/zakarialaoui10/ziko.js), It shares many principles with VanJS, especially in terms of **declarative hyperscript-style coding**
+
+While both frameworks allow you to write code like p("Hello World"), the key difference lies in what is returned :
+- In **Vanjs** it returns a Dom `Node` ( `HTMLElement` or `SVGElement`)
+- In **Zikojs** returns an instance `ZikoUIElement`,  which contains the DOM node internally (accessible via .element) and provides an extended API.
+
+Even though the API looks similar, the return values are structurally different. Recently, I've implemented a **bridge** that enables **seamless interleaving between ZikoJS and VanJS**
+
+## What This Enables ? 
+This appraoch enbales : 
+- Use **VanJS elements** inside ZikoJS layouts.
+- Use **ZikoJS components** inside VanJS tags.
+
+## How It works ? 
+- In order to make vanjs elements compatible with zikojs i added this line inside my library :
+```js
+if (ele[i] instanceof Node) ele[i] = new ZikoUIElement(ele[i]);
+```
+This line perform an implicit conversion from Dom Node to ZikoUIElement before appendig it to the layout
+
+- On the other hand, since I am not the author of VanJS and any additions may increase bundle size, I created a small runtime script that customizes the van.tags and van.add methods. You can check the script here:
+ziko-wrapper/vanify.js
+
+All you need to do is import the side-effect module:
+
+```js
+import "ziko-wrapper/van";
+```
+This will patch VanJS to automatically unwrap ZikoJS elements when used as children.
+
+> [!Tip] 
+> So, practically, all ZikoJS libraries can be considered usable as VanJS libraries and vice versa. 
+
+## Demo
+```js 
+import van from "vanjs-core";
+import { Flex } from "ziko";
+import { Activity } from "vanjs-lucide";
+import "ziko-wrapper/van";
+
+const { p } = van.tags;
+
+const para = p(
+    Flex(
+        p("Hello From Van"),
+        Activity({ class:"icon", style:"color: turquoise" })
+    )
+    .style({ border: "1px darkblue solid" })
+    .vertical(0, 0)
+);
+
+document.body.append(para)
+```
+
+This demo illustrates interleaving happening in both directions.
+
+> [!IMPORTANT]  
+> For me, once I finish the documentation, I plan to add VanJS plugins as ZikoJS plugins. Now, I want to add some of my libraries as VanJS plugins as well, but I’m wondering whether I should create independent packages with names prefixed by `van-[plugin]`, or if it’s enough to provide a wrapper—like I did in [p5.wrapper](https://github.com/zakarialaoui10/p5.wrapper)—so users just need to import from `ziko-[plugin]/van` ?
