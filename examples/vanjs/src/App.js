@@ -7,7 +7,7 @@ import Blog from "./blog/test.mdx"
 export const App = () => {
   const { div, h1, img, p, a } = van.tags;
   return div(
-    Blog(),
+    Blog().vertical(-1, -1),
     a(
       { href: "https://vite.dev", target: "_blank" },
       img({
