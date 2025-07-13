@@ -1,6 +1,6 @@
 {
   "name": "mdzjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -10,11 +10,9 @@
     "watch": "cross-env NODE_ENV=development rollup --config rollup.config.js -w",
     "build": "cross-env NODE_ENV=production rollup --config rollup.config.js"
   },
-  "./": {
-    "import": "./src/index.js"
-  },
-  "./vite": {
-    "import": "./src/bundlers/vite.js"
+  "exports": {
+    ".": "./src/index.js",
+    "./vite": "./src/bundlers/vite.js"
   },
   "author": "zakaria elalaoui",
   "keywords": [
@@ -28,6 +26,7 @@
   "license": "MIT",
   "dependencies": {
     "acorn": "^8.14.0",
+    "highlight.js": "^11.11.1",
     "htmlparser2": "^9.1.0",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.0",
