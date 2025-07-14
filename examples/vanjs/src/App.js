@@ -6,7 +6,11 @@ console.log({title})
 export const App = () => {
   const { div, h1, img, p, a } = van.tags;
   return div(
-    Blog({name : "cyan", __code_style__ : "1c-light"}).vertical(-1, -1),
+    Blog({
+      counter_start : 19,
+      name : "cyan", 
+      __code_style__ : "1c-light"
+    }).vertical(-1, -1),
     // a(
     //   { href: "https://vite.dev", target: "_blank" },
     //   img({

@@ -1,8 +1,8 @@
 import van from "vanjs-core";
 
-const Counter = ({counter_start = 10}={}) => {
+const Counter = ({start = 10}={}) => {
   const { button, div } = van.tags;
-  const counter = van.state(counter_start);
+  const counter = van.state(start);
   return (
     div(
       {class : "counter"},
