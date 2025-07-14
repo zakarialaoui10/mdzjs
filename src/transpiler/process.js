@@ -6,6 +6,7 @@ import {
 } from "../utils/index.js"
 import hljs from "highlight.js"
 const processMDZAST = (markdownAST) => {
+    let hasCode = false;
     const transformNode = (node) => {
       switch(node.type){
         case 'mdxjsEsm' : {
@@ -63,6 +64,7 @@ const processMDZAST = (markdownAST) => {
         }
   
         case 'code': {
+          hasCode = true;
           // const language = node.lang ? `{ 'data-lang': '${node.lang}' }` : '';
           const highlightedCode = hljs.highlightAuto(node.value, [node.lang || '']).value;
           // hljs
@@ -104,6 +106,7 @@ const processMDZAST = (markdownAST) => {
           // return `h('td', {}, ${childNodes}).style({border : "1px solid darkblue", borderCollapse: "collapse", padding : "5px"})`;
         }
         case 'yaml':{
+          // console.log({yml : node.value})
           const {props, attrs} = parseYml(node.value)
           return {
             type : "yaml",
@@ -145,8 +148,8 @@ const processMDZAST = (markdownAST) => {
       switch(node.type){
         case 'yaml' : {
           const Transformed = transformNode(node)
-          props = Transformed.props,
-          attrs = Transformed.attrs
+          props = Transformed.props;
+          attrs = Transformed.attrs;
         } break;
         case 'mdxjsEsm' : esm.push(node.value); break;
         default : {
@@ -160,7 +163,8 @@ const processMDZAST = (markdownAST) => {
       attrs,
       props,
       esm,
-      statements
+      statements,
+      hasCode
     }
   };
 export {

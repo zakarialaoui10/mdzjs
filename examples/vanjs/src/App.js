@@ -2,13 +2,13 @@ import van from "vanjs-core";
 import Counter from "./components/Counter";
 import "./App.css";
 import "ziko-wrapper/van"
-import Blog from "./blog/test.mdx"
-import "highlight.js/styles/1c-light.css"
+import Blog ,{title} from "./blog/test.mdx";
+console.log({title})
 
 export const App = () => {
   const { div, h1, img, p, a } = van.tags;
   return div(
-    Blog().vertical(-1, -1),
+    Blog({name : "cyan", __code_style__ : "1c-light"}).vertical(-1, -1),
     a(
       { href: "https://vite.dev", target: "_blank" },
       img({
