@@ -22,13 +22,23 @@ a:hover {
   color: #535bf2;
 }
 
-body {
+.counter{
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width : 50vw;
+  height: 120px;
+  border : 2px solid darkcyan;
+  border-radius: 10%;
+}
+/* body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
+} */
 
 h1 {
   font-size: 3.2em;
@@ -71,6 +81,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  height: 50px;
 }
 button:hover {
   border-color: #646cff;
