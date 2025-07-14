@@ -1,6 +1,6 @@
 {
   "name": "mdzjs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -35,7 +35,8 @@
     "rollup": "^4.24.0",
     "unified": "^11.0.5",
     "yaml": "^2.6.1",
-    "ziko": "^0.0.27"
+    "ziko": "^0.0.27",
+    "ziko-wrapper": "^0.0.25"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.0",

@@ -2,7 +2,7 @@ import { parseMDZ } from "./parser.js";
 import { processMDZAST } from "./process.js";
 import { stringifyProps } from "../utils/parse-yml.js";
 
-const transpileMDZ=(Markdown, CodeStyle = "1c-light")=>{
+const transpileMDZ=(Markdown, useVanJs = false, CodeStyle = "1c-light")=>{
     const ast = parseMDZ(Markdown);
     const {attrs, props, esm, statements, hasCode}= processMDZAST(ast)
     const body = [
@@ -16,6 +16,7 @@ const transpileMDZ=(Markdown, CodeStyle = "1c-light")=>{
         "return UI }"
       ]
     if(hasCode) body.unshift(`import("highlight.js/styles/${CodeStyle}.css")`);
+    if(useVanJs) body.unshift('import "ziko-wrapper/van"')
     return body.join("\n");
 }
 export{
