@@ -1,11 +1,13 @@
 export const hyperscript = (tag, attrs, children="") => {
     const HasChildren = !!children;
 
-    if(tag === "p"){
-        children = children + ',""'
+    if(["p","li"].includes(tag)){
+      console.log({tag})
+        children = ',""' + children + ',""'
         const splitted = splitQuotedLines(children);
         children = insertBetween(splitted, 'h("br")')
         children[children.length - 1] = children.at(-1).slice(0, -3)
+        children[0] = children.at(0).slice(3)
     }
     return `h("${tag}", ${attrs}${HasChildren ?`, ${children}` : ""})`
 }
