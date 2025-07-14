@@ -1,8 +1,7 @@
 export const hyperscript = (tag, attrs, children="") => {
     const HasChildren = !!children;
 
-    if(["p","li"].includes(tag)){
-      console.log({tag})
+    if(tag){
         children = ',""' + children + ',""'
         const splitted = splitQuotedLines(children);
         children = insertBetween(splitted, 'h("br")')
