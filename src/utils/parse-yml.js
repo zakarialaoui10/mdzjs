@@ -1,7 +1,7 @@
 import { parse } from 'yaml'; 
 
 const parseYml = yml => {
-    const {__props__, ...__attrs__} = parse(yml) ;
+    const {__props__, ...__attrs__} = yml ? parse(yml) : {__props__ : {}} ;
     const HasAttributs = Object.keys(__attrs__).length > 0
     return {
         props : __props__,

@@ -1,7 +1,8 @@
 import van from "vanjs-core";
 import "./App.css";
-import Blog ,{title} from "./blog/test.mdx";
-console.log({title})
+import Blog from "./blog/test.mdx";
+// import {title} from "./blog/test.mdx"
+// console.log({title})
 
 export const App = () => {
   const { div, h1, img, p, a } = van.tags;

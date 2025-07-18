@@ -14,7 +14,6 @@
     "vite": "^6.3.5"
   },
   "dependencies": {
-    "mdzjs": "^0.0.6",
     "p5.wrapper": "^0.0.1",
     "vanjs-core": "^1.5.5",
     "ziko-wrapper": "^0.0.25"
