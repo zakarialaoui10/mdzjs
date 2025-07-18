@@ -1,6 +1,6 @@
 {
   "name": "mdzjs",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -12,7 +12,8 @@
   },
   "exports": {
     ".": "./src/index.js",
-    "./vite": "./src/bundlers/vite.js"
+    "./vite": "./src/bundlers/vite.js",
+     "./astro": "./src/bundlers/astro.js"
   },
   "author": "zakaria elalaoui",
   "keywords": [
