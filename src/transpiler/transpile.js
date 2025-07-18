@@ -1,9 +1,9 @@
-import { parseMDZ } from "./parser.js";
+import { parseMarkdown } from "./parser.js";
 import { processMDZAST } from "./process.js";
 import { stringifyProps } from "../utils/parse-yml.js";
 
 const transpileMDZ=(Markdown, useVanJs = false, CodeStyle = "1c-light")=>{
-    const ast = parseMDZ(Markdown);
+    const ast = parseMarkdown(Markdown);
     const {attrs, props, esm, statements, hasCode}= processMDZAST(ast)
     const body = [
         'import {h, HTMLWrapper, Flex} from "ziko"',

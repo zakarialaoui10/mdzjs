@@ -118,8 +118,6 @@ const processMDZAST = (markdownAST) => {
           const {name, attributes, children} = node;
           const childNodes = children.map(transformNode).join(', ');
           const hasChildren = childNodes.length > 0;
-          // console.log({name})
-          // console.log(componentType(name))
           switch(componentType(name)){
             case "jsx" : {
               return `${name}(${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
