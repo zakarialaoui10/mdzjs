@@ -114,6 +114,12 @@ const processMDZAST = (markdownAST) => {
             attrs
           }
         }
+        case 'mdxJsxTextElement': {
+          const {name, attributes, children} = node;
+          const childNodes = children.map(transformNode).join(', ');
+          const hasChildren = childNodes.length > 0;
+          return `h("${name}", ${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
+        };
         case 'mdxJsxFlowElement':{
           const {name, attributes, children} = node;
           const childNodes = children.map(transformNode).join(', ');
