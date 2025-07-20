@@ -2,7 +2,7 @@
 > This project is part of the [ZikoJS](https://github.com/zakarialaoui10/ziko.js) ecosystem.
 
 # MDZjs
-A Markdown preprocessor for Zikojs. Markdown in Zikojs.
+A Markdown preprocessor for Zikojs.
 It combines the simplicity of Markdown syntax with the power and flexibility of ***Javascript***
 
 ## Install 
@@ -25,7 +25,7 @@ export default defineConfig({
 
 *Article.mdz :*
 
-```js
+```jsx
 ---
  title : MDZ 
  name : world

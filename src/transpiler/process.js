@@ -74,7 +74,7 @@ const processMDZAST = (markdownAST) => {
           //   language,
           //   JSON.stringify(node.value)
           // ));
-          return `HTMLWrapper('<pre>${formatedCode}</pre>')`
+          return `HTMLWrapper('<pre><code>${formatedCode}</code></pre>')`
         }
   
         case 'blockquote': {
