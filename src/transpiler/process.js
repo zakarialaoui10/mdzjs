@@ -62,7 +62,9 @@ const processMDZAST = (markdownAST) => {
           const childNodes = node.children.map(transformNode).join(', ');
           return hyperscript("li", "{}", childNodes);
         }
-  
+        case 'inlineCode' : {
+          return hyperscript("code", "{}", `"${node.value}"`)
+        }
         case 'code': {
           hasCode = true;
           // const language = node.lang ? `{ 'data-lang': '${node.lang}' }` : '';
