@@ -8,9 +8,6 @@ import InteractiveBlock from "./Components/InteractiveBlock.js"
 
 # Hello world 
 
-- `LL jdjjd mmmd`
-- JJ **ll**
-
 <Dom text="Hello from dom" color="red" />
 <InteractiveBlock />
 

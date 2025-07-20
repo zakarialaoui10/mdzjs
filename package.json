@@ -1,6 +1,6 @@
 {
   "name": "mdzjs",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -22,7 +22,8 @@
     "markdown",
     "remark",
     "mdx",
-    "preprocessor"
+    "preprocessor",
+    "astro-integrations"
   ],
   "license": "MIT",
   "dependencies": {
