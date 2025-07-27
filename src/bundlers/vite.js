@@ -10,6 +10,21 @@ export default function ViteMDZ({extensions = [".mdx"], useVanJs = false}={}){
           };
         }
       },
+      handleHotUpdate({ file, server }) {
+        if (file.endsWith('.mdz')) {
+          // Send update to Vite HMR client
+          server.ws.send({
+            type: 'custom',
+            event: 'custom-update',
+            data: {
+              file,
+              timestamp: Date.now(),
+            },
+          });
+
+          return [file];
+        }
+      },
     };
   }
   
