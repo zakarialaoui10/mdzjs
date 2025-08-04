@@ -1,7 +1,7 @@
 {
   "name": "mdzjs",
-  "version": "0.0.10",
-  "description": "",
+  "version": "0.10.0",
+  "description": "markdown preprocessor for zikojs",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -13,7 +13,7 @@
   "exports": {
     ".": "./src/index.js",
     "./vite": "./src/bundlers/vite.js",
-     "./astro": "./src/bundlers/astro.js"
+    "./astro": "./src/bundlers/astro.js"
   },
   "author": "zakaria elalaoui",
   "keywords": [
@@ -23,7 +23,8 @@
     "remark",
     "mdx",
     "preprocessor",
-    "astro-integration"
+    "astro-integration",
+    "withastro"
   ],
   "license": "MIT",
   "dependencies": {
@@ -37,7 +38,7 @@
     "rollup": "^4.24.0",
     "unified": "^11.0.5",
     "yaml": "^2.6.1",
-    "ziko": "^0.0.27",
+    "ziko": "^0.34.0",
     "ziko-wrapper": "^0.0.25"
   },
   "devDependencies": {
