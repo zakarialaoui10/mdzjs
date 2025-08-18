@@ -49,7 +49,7 @@ const processMDZAST = (markdownAST) => {
   
         case 'image': {
           hyperscript("img", `{ src: "${node.url}", alt: "${node.alt || ''}`)
-          return `h('img', { src: "${node.url}", alt: "${node.alt || ''}" })`;
+          return `tags.img({ src: "${node.url}", alt: "${node.alt || ''}" })`;
         }
   
         case 'list': {
@@ -84,7 +84,7 @@ const processMDZAST = (markdownAST) => {
           return hyperscript("blockquote", "{}", childNodes);
         }
         case 'thematicBreak': {
-          return `h('hr', {})`;
+          return `tags.hr({})`;
         }
         case 'table': {
           const headerRows = node.children[0].children.map(transformNode).join(', ');
@@ -120,7 +120,7 @@ const processMDZAST = (markdownAST) => {
           const {name, attributes, children} = node;
           const childNodes = children.map(transformNode).join(', ');
           const hasChildren = childNodes.length > 0;
-          return `h("${name}", ${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
+          return `tags.${name}(${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
         };
         case 'mdxJsxFlowElement':{
           const {name, attributes, children} = node;
@@ -130,7 +130,7 @@ const processMDZAST = (markdownAST) => {
             case "jsx" : {
               return `${name}(${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
             }
-            case "html" : return `h("${name}", ${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
+            case "html" : return `tags.${name}(${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
             case "script" : {
               const statements = [];
               for(let i=0; i<node.children.length; i++) statements.push(node.children[i].children[0].value)

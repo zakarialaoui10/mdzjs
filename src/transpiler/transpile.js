@@ -6,7 +6,9 @@ const transpileMDZ=(Markdown, useVanJs = false, CodeStyle = "1c-light")=>{
     const ast = parseMarkdown(Markdown);
     const {attrs, props, esm, statements, hasCode}= processMDZAST(ast)
     const body = [
-        'import {h, HTMLWrapper, Flex} from "ziko"',
+        'import {tags, HTMLWrapper, Flex} from "ziko"',
+        // 'console.log(111)',
+        // 'const h(tag, attrs, ...items) = tags'
         attrs,
         ...esm,
         `export default (${stringifyProps(props)})=>{`,

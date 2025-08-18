@@ -9,7 +9,7 @@ import InteractiveBlock from "./Components/InteractiveBlock.js"
 # Hello world 
 
 <Dom text="Hello from dom" color="red" />
-<InteractiveBlock />
+<InteractiveBlock data = 'tdhdhdt' />
 
 Hello **{name}**
 

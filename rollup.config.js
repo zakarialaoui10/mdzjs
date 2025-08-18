@@ -1,4 +1,4 @@
-import { Str } from "ziko";
+// import { hyphen2pascalcase } from "ziko/data/string/index.js";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from '@rollup/plugin-commonjs';
 
@@ -26,7 +26,8 @@ const output = [
   {
     file: `dist/${Addon_name}.js`,
     format: "umd",
-    name: Str.hyphen2pascalcase(Addon_name),
+    // name: hyphen2pascalcase(Addon_name),
+    name : 'MDZ',
     banner,
     exports: "named",
   },
@@ -42,7 +43,8 @@ isProduction &&
     {
       file: `dist/${Addon_name}.min.js`,
       format: "umd",
-      name: Str.hyphen2pascalcase(Addon_name),
+      // name: hyphen2pascalcase(Addon_name),
+      name : 'Mdz',
       banner,
       exports: "named",
       plugins: [
