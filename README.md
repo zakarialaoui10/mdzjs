@@ -95,4 +95,12 @@ If you appreciate the project, kindly demonstrate your support by giving it a st
 <!--## Financial support-->
 # License 
 This projet is licensed under the terms of MIT License 
-<img src="https://img.shields.io/github/license/zakarialaoui10/mdzjs?color=rgb%2820%2C21%2C169%29" width="100" align="right">
+<img src="https://img.shields.io/github/license/zakarialaoui10/mdzjs?color=rgb%2820%2C21%2C169%29" width="100" align="right"
+
+<!-- 
+ To do 
+   : fix fm
+   : add possibility of adding plugins 
+   : add zod
+   : auto typing 
+-->
