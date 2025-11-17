@@ -22,15 +22,12 @@ const processMDZAST = (markdownAST) => {
         }
         case 'mdxTextExpression' : {
           const {value} = node
-          console.log({value})
           return value
         }
         case 'mdxFlowExpression' : {
           const {value} = node;
-          if (!node.parent || node.parent.type === 'root') {
-                return hyperscript("p", "{}", value);
-          }
-          console.log({value})
+          if(!node.parent || node.parent.type === 'root') 
+            return hyperscript("p", "{}", value);
           return value
         }
         case 'heading' : {
@@ -45,17 +42,14 @@ const processMDZAST = (markdownAST) => {
           const childNodes = node.children.map(transformNode).join(', ');
           return hyperscript("strong","{}", childNodes);
         }
-  
         case 'emphasis': {
           const childNodes = node.children.map(transformNode).join(', ');
           return hyperscript("em","{}", childNodes);
         }
-  
         case 'link': {
           const childNodes = node.children.map(transformNode).join(', ');
           return hyperscript("a", `{ href: "${node.url}" }`, childNodes);
         }
-  
         case 'image': {
           hyperscript("img", `{ src: "${node.url}", alt: "${node.alt || ''}`)
           return `tags.img({ src: "${node.url}", alt: "${node.alt || ''}" })`;
@@ -76,18 +70,10 @@ const processMDZAST = (markdownAST) => {
         }
         case 'code': {
           hasCode = true;
-          // const language = node.lang ? `{ 'data-lang': '${node.lang}' }` : '';
           const highlightedCode = hljs.highlightAuto(node.value, [node.lang || '']).value;
-          // hljs
           const formatedCode = highlightedCode.replace(/(\r\n|\n|\r)/g, "<br>")    
-          // const out =  hyperscript("pre", "{}", hyperscript(
-          //   "code",
-          //   language,
-          //   JSON.stringify(node.value)
-          // ));
           return `HTMLWrapper('<pre><code>${formatedCode}</code></pre>')`
         }
-  
         case 'blockquote': {
           const childNodes = node.children.map(transformNode).join(', ');
           return hyperscript("blockquote", "{}", childNodes);

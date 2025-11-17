@@ -1,13 +1,13 @@
 import { unified } from 'unified';
 import { reporter } from 'vfile-reporter'
 import remarkParse from 'remark-parse';
+import remarkMdx from 'remark-mdx'
 import remarkFrontmatter from 'remark-frontmatter';
-// import remarkToc from 'remark-toc'
+import remarkToc from 'remark-toc'
 import remarkGFM from 'remark-gfm';
 import { VFile } from 'vfile';
 import {matter} from 'vfile-matter';
-import { mdxjsEsm } from 'micromark-extension-mdxjs-esm'
-import { mdxjsEsmFromMarkdown } from 'mdast-util-mdxjs-esm'
+
 
 export async function parseMDZ(markdown, ...plugins) {
   const file = new VFile(markdown);
@@ -15,14 +15,10 @@ export async function parseMDZ(markdown, ...plugins) {
 
   const preprocessor = unified()
     .use(remarkParse)
-    .use({
-      extensions: [mdxjsEsm()],
-      fromMarkdown: [mdxjsEsmFromMarkdown()]
-    })
     .use(remarkGFM)
     .use(remarkFrontmatter, ['yaml'])
-    // .use(mdxjsEsm)
-    // .use(remarkToc)
+    .use(remarkToc)
+    .use(remarkMdx)
 
   plugins.forEach(plugin => {
     if (Array.isArray(plugin)) preprocessor.use(...plugin);
@@ -38,21 +34,24 @@ export async function parseMDZ(markdown, ...plugins) {
   };
 }
 
-const inp = `
----
-a : 1
-b : 2
-MDZ.Props : 
- - a : 1
- - c : 2
----
+// const inp = `
+// ---
+// a : 1
+// b : 2
+// MDZ.Props : 
+//  - a : 1
+//  - c : 2
+// ---
 
-## Contents
+// // const {a, b} 
+// // = MDZ.Props
 
-## History
+// ## Contents
 
-### Discovery
-`.trimStart()
-const out = await parseMarkdown(inp, )
+// ## History
 
-console.log(out)
+// ### Discovery
+// `.trimStart()
+// const out = await parseMarkdown(inp)
+
+// console.log(JSON.stringify(out.ast.children, null, 2))
