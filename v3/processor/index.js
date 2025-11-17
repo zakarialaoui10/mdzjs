@@ -22,6 +22,15 @@ const processMDZAST = (markdownAST) => {
         }
         case 'mdxTextExpression' : {
           const {value} = node
+          console.log({value})
+          return value
+        }
+        case 'mdxFlowExpression' : {
+          const {value} = node;
+          if (!node.parent || node.parent.type === 'root') {
+                return hyperscript("p", "{}", value);
+          }
+          console.log({value})
           return value
         }
         case 'heading' : {

@@ -10,9 +10,12 @@ MDZ.Props :
 ---
 import A from 'B';
 
+{A}
+
 # Hello 
 `.trimStart()
 const out = await parseMarkdown(inp)
 const p = processMDZAST(out.ast)
 
+// console.log(out)
 console.log(p)
