@@ -2,10 +2,12 @@ import { unified } from 'unified';
 import { reporter } from 'vfile-reporter'
 import remarkParse from 'remark-parse';
 import remarkFrontmatter from 'remark-frontmatter';
-import remarkToc from 'remark-toc'
+// import remarkToc from 'remark-toc'
 import remarkGFM from 'remark-gfm';
 import { VFile } from 'vfile';
 import {matter} from 'vfile-matter';
+import { mdxjsEsm } from 'micromark-extension-mdxjs-esm'
+import { mdxjsEsmFromMarkdown } from 'mdast-util-mdxjs-esm'
 
 export async function parseMDZ(markdown, ...plugins) {
   const file = new VFile(markdown);
@@ -13,8 +15,13 @@ export async function parseMDZ(markdown, ...plugins) {
 
   const preprocessor = unified()
     .use(remarkParse)
+    .use({
+      extensions: [mdxjsEsm()],
+      fromMarkdown: [mdxjsEsmFromMarkdown()]
+    })
     .use(remarkGFM)
     .use(remarkFrontmatter, ['yaml'])
+    // .use(mdxjsEsm)
     // .use(remarkToc)
 
   plugins.forEach(plugin => {

@@ -41,7 +41,7 @@
     "vfile-matter": "^5.0.1",
     "vfile-reporter": "^8.1.1",
     "yaml": "^2.6.1",
-    "ziko": "^0.45.5",
+    "ziko": "^0.48.1",
     "ziko-wrapper": "^0.0.25"
   },
   "devDependencies": {

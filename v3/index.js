@@ -1,11 +1,13 @@
 import { unified } from 'unified';
 import { reporter } from 'vfile-reporter'
 import remarkParse from 'remark-parse';
+import remarkMdx from 'remark-mdx'
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkToc from 'remark-toc'
 import remarkGFM from 'remark-gfm';
 import { VFile } from 'vfile';
 import {matter} from 'vfile-matter';
+
 
 export async function parseMarkdown(markdown, ...plugins) {
   const file = new VFile(markdown);
@@ -16,6 +18,7 @@ export async function parseMarkdown(markdown, ...plugins) {
     .use(remarkGFM)
     .use(remarkFrontmatter, ['yaml'])
     .use(remarkToc)
+    .use(remarkMdx)
 
   plugins.forEach(plugin => {
     if (Array.isArray(plugin)) preprocessor.use(...plugin);
@@ -31,24 +34,24 @@ export async function parseMarkdown(markdown, ...plugins) {
   };
 }
 
-const inp = `
----
-a : 1
-b : 2
-MDZ.Props : 
- - a : 1
- - c : 2
----
+// const inp = `
+// ---
+// a : 1
+// b : 2
+// MDZ.Props : 
+//  - a : 1
+//  - c : 2
+// ---
 
-// const {a, b} 
-// = MDZ.Props
+// // const {a, b} 
+// // = MDZ.Props
 
-## Contents
+// ## Contents
 
-## History
+// ## History
 
-### Discovery
-`.trimStart()
-const out = await parseMarkdown(inp)
+// ### Discovery
+// `.trimStart()
+// const out = await parseMarkdown(inp)
 
-console.log(JSON.stringify(out.ast.children, null, 2))
+// console.log(JSON.stringify(out.ast.children, null, 2))

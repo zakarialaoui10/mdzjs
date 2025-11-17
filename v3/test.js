@@ -1,4 +1,5 @@
 import { parseMarkdown } from "./index.js";
+import { processMDZAST } from "./processor/index.js";
 const inp = `
 ---
 a : 1
@@ -7,12 +8,11 @@ MDZ.Props :
  - a : int().default(10)
  - c : 2
 ---
----
-import A : 1
----
+import A from 'B';
 
 # Hello 
 `.trimStart()
 const out = await parseMarkdown(inp)
+const p = processMDZAST(out.ast)
 
-console.log(out.frontmatter['MDZ.Props'])
+console.log(p)
