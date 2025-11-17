@@ -2,7 +2,7 @@ import { parseMDZ } from "../parser/index.js";
 import { processMDZAST } from "../processor/index.js";
 import { stringifyProps, transformeAttrs } from "../utils/index.js";
 
-const transpileMDZ=async (Markdown, {plugins = []} = {})=>{
+const transpileMDZ = async (Markdown, {plugins = []} = {})=>{
     const {ast, frontmatter} = await parseMDZ(Markdown, ...plugins);
     const {esm, statements, hasCode}= processMDZAST(ast);
 
