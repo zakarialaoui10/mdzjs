@@ -1,49 +1,24 @@
-// import { cleanMD } from "./pre-parse/clean-md.js";
-import { parseMDZ, transpileMDZ } from "./transpiler/index.js";
-import { parseYml } from "./utils/parse-yml.js";
-
-const md = `---
-title : get started
-id : 1
-__props__ : 
- color : red
- size : 10
+import { parseMDZ } from "./parser/index.js";
+import { processMDZAST } from "./processor/index.js";
+import { transpileMDZ } from "./transpiler/index.js";
+const inp = `
 ---
+a : 1
+b : 2
+MDZ.Props : 
+ - a : 3
+ - c : 2
+---
+import A from 'B';
 
-<script>
- console.log(1)
- console.log(2)
+{A}
 
- console.log(3)
-</script>
-
-import A from "./A"
-export const b = 10;
-
-Hello {name} mm {m} [mmmm](kkk)
-
-<B exp={1+1} str="kk">
-  # hi
-  # hi
-</B>
-
-# Hi 
-## HI {Ziko}
-
-
-|A|B|
-|-|-|
-
+# Hello 
 `
+// const out = await parseMDZ(inp)
+// const p = processMDZAST(out.ast)
+const t = await transpileMDZ(inp)
 
-// const md = `---
-// title : Hi
-// ---
-// `
-const ast = parseMDZ(md)
-// console.log(ast.children.at(-1))
-const js = transpileMDZ(md)
-console.log(js)
-// console.log(JSON.stringify(ast, null, 2))
-
-// parseYml('a : 1\n__props__ : \n d : 2\n e : 1')
+// console.log(out)
+// console.log(p)
+console.log(t)

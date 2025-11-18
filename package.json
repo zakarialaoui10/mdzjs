@@ -12,8 +12,8 @@
   },
   "exports": {
     ".": "./src/index.js",
-    "./vite": "./src/bundlers/vite.js",
-    "./astro": "./src/bundlers/astro.js"
+    "./*": "./src/loaders/*/index.js"
+
   },
   "author": "zakaria elalaoui",
   "keywords": [

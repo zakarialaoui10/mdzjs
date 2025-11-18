@@ -3,8 +3,8 @@ title : "MDZ Overview"
 background : "red"
 
 ---
-import {Dom} from "./Components/Dom"
-import InteractiveBlock from "./Components/InteractiveBlock.js"
+import {Dom} from "./components/Dom"
+import InteractiveBlock from "./components/InteractiveBlock.js"
 
 # Hello world 
 
