@@ -1,7 +1,6 @@
 import { 
   componentType,
   processAttribute,
-//   parseYml,
   hyperscript
 } from "../utils/index.js"
 import hljs from "highlight.js"

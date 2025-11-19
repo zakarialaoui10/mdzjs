@@ -17,5 +17,5 @@ export default ({data , color = 'red'})=>{
         padding : "10px",
         minHeight : "100px",
         margin : "auto"
-    })
+    }).onClick(e=>console.log(e.target))
 }

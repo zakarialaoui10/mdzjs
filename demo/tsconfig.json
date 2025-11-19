@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "typeRoots": ["src/pages/.mdz", "./node_modules/@types"]
+  },
+  "include": ["src", "src/pages/.mdz"]
+}

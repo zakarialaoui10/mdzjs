@@ -1,6 +1,6 @@
 {
   "name": "mdzjs",
-  "version": "0.10.7",
+  "version": "0.11.1",
   "description": "markdown preprocessor for zikojs",
   "main": "index.js",
   "type": "module",
@@ -10,10 +10,10 @@
     "watch": "cross-env NODE_ENV=development rollup --config rollup.config.js -w",
     "build": "cross-env NODE_ENV=production rollup --config rollup.config.js"
   },
+  "types": "./types/index.d.ts",
   "exports": {
     ".": "./src/index.js",
     "./*": "./src/loaders/*/index.js"
-
   },
   "author": "zakaria elalaoui",
   "keywords": [
@@ -40,7 +40,6 @@
     "unified": "^11.0.5",
     "vfile-matter": "^5.0.1",
     "vfile-reporter": "^8.1.1",
-    "yaml": "^2.6.1",
     "ziko": "^0.48.1",
     "ziko-wrapper": "^0.0.25"
   },
