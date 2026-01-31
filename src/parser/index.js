@@ -43,15 +43,16 @@ export async function parseMDZ(markdown, ...plugins) {
 //  - c : 2
 // ---
 
-// // const {a, b} 
-// // = MDZ.Props
+// // // const {a, b} 
+// // // = MDZ.Props
 
-// ## Contents
+// // ## Contents
 
-// ## History
+// // ## History
 
-// ### Discovery
-// `.trimStart()
-// const out = await parseMarkdown(inp)
+// // ### Discovery
+// // `.trimStart()
+// const out = await parseMDZ(inp)
+// console.log(out.ast)
 
-// console.log(JSON.stringify(out.ast.children, null, 2))
+// // console.log(JSON.stringify(out.ast.children, null, 2))

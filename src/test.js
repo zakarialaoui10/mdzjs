@@ -6,19 +6,20 @@ const inp = `
 a : 1
 b : 2
 MDZ.Props : 
- - a : 3
+ - a : 1
  - c : 2
 ---
+
 import A from 'B';
 
 {A}
 
 # Hello 
 `
-// const out = await parseMDZ(inp)
+const out = await parseMDZ(inp.trimStart())
 // const p = processMDZAST(out.ast)
-const t = await transpileMDZ(inp)
+// const t = await transpileMDZ(inp)
 
-// console.log(out)
+console.log(out)
 // console.log(p)
-console.log(t)
+// console.log(t)

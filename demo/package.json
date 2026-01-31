@@ -15,8 +15,6 @@
     "highlight.js": "^11.11.0",
     "jsdom": "^25.0.1",
     "prism": "^1.0.0",
-    "ziko-gl": "^0.0.3",
-    "ziko-lottie": "^0.0.7",
-    "ziko-wrapper": "^0.0.25"
+    "ziko": "^0.60.1"
   }
 }

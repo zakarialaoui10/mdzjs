@@ -1,7 +1,10 @@
 ---
 title : "MDZ Overview"
 background : "red"
+MDZ.Props : 
+  name : "ziko"
 ---
+
 import {Dom} from "./components/Dom"
 import InteractiveBlock from "./components/InteractiveBlock.js"
 

@@ -3,7 +3,7 @@ import { processMDZAST } from "../processor/index.js";
 import { stringifyProps, transformeAttrs } from "../utils/index.js";
 
 const transpileMDZ = async (Markdown, {plugins = []} = {})=>{
-    const {ast, frontmatter} = await parseMDZ(Markdown, ...plugins);
+    const {ast, frontmatter} = await parseMDZ(Markdown.trimStart(), ...plugins);
     const {esm, statements, hasCode}= processMDZAST(ast);
 
     const { 'MDZ.Props': props, ...attrs } = frontmatter;
