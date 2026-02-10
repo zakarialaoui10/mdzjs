@@ -1,5 +1,4 @@
-> [!NOTE]   
-> This project is part of the [ZikoJS](https://github.com/zakarialaoui10/ziko.js) ecosystem.
+[![mdzjs banner](https://raw.githubusercontent.com/zikojs/.github/main/assets/banners/mdzjs.svg)](https://github.com/zikojs)
 
 # MDZjs
 A Markdown preprocessor for Zikojs.

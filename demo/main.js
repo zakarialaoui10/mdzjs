@@ -1,5 +1,5 @@
 // import { useTitle } from "ziko"
-// import {tags} from 'ziko/ui'
+import {tags} from 'ziko/ui'
 // import {Dom} from './components/Dom.js'
 // import UI, {title} from "./test.mdz"
 import UI from './test.mdz'
@@ -8,9 +8,18 @@ import UI from './test.mdz'
 // console.log(d)
 // tags.div({}, d)
 // title && useTitle(title)
-UI({name : "from MDZjs"})
+globalThis.items = UI({name : "from MDZjs"})
+
+globalThis.App = tags.section({}, ...items).style({
+    border : '1px darkblue solid',
+    padding : '16px'
+})
+
+App.mount(document.body)
+
+// .forEach(n => n.mount(document.body))
     // .vertical(-1, 0)
-    .style({
-        border :"1px darkblue solid",
-        padding : "15px",
-    }).mount(document.body)
+    // .style({
+    //     border :"1px darkblue solid",
+    //     padding : "15px",
+    // }).mount(document.body)

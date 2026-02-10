@@ -15,6 +15,7 @@ const transpileMDZ = async (Markdown, {plugins = []} = {})=>{
         `export default (${stringifyProps(props)})=>{`,
         'const __items__ = []',
         ...statements,
+        'return __items__',
         "const UI = tags.div({class : 'mdz-wrapper'}, ...__items__).style({display : 'contents'})",
         "return UI }"
       ]
