@@ -28,7 +28,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zakarialaoui10/mdzjs.js.git"
+    "url": "git+https://github.com/zakarialaoui10/mdzjs.git"
   },
   "license": "MIT",
   "dependencies": {
