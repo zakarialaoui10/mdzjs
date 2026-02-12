@@ -6,8 +6,6 @@ const transpileMDZ = async (Markdown, {plugins = []} = {})=>{
     const {ast, frontmatter} = await parseMDZ(Markdown.trimStart(), ...plugins);
     const {esm, statements, hasCode, Tags}= processMDZAST(ast);
 
-    console.log({Tags})
-
     const { 'MDZ.Props': props, ...attrs } = frontmatter;
 
     const body = [
@@ -20,8 +18,6 @@ const transpileMDZ = async (Markdown, {plugins = []} = {})=>{
         ...statements,
         'return __items__',
         '}',
-        // "const UI = tags.div({class : 'mdz-wrapper'}, ...__items__).style({display : 'contents'})",
-        // "return UI }"
       ]
     // if(hasCode) body.unshift(`import("highlight.js/styles/${CodeStyle}.css")`);
     return body.join("\n");

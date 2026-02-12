@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "highlight.js": "^11.11.1",
-    "jsdom": "^25.0.1"
+    "jsdom": "^25.0.1",
+    "zextra": "^0.15.0"
   }
 }

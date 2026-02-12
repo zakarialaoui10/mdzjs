@@ -6,10 +6,15 @@ MDZ.Props :
 ---
 
 import InteractiveBlock from "./components/InteractiveBlock.js"
+import { TableOfContents } from 'zextra/nav'
 
 # Hello world 
 
+## PP
+
 <InteractiveBlock data = 'tdhdhdt' />
+
+<TableOfContents />
 
 Hello **{name}**
 
@@ -33,3 +38,12 @@ fuction B(){
  print(10)
  A=[1,2,3]
 ```
+
+
+## Install 
+
+## Features
+
+## LS
+
+## Data

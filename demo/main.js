@@ -1,26 +1,19 @@
 import {tags} from 'ziko/ui'
 import UI from './test.mdz'
+import { ScrollArea } from 'zextra/containers'
 
 import hljs from "highlight.js"
 import 'highlight.js/styles/github.css';
 hljs.highlightAll()
-// globalThis.d = Dom({text : 'AAAAA', color : 'red'})
-// console.log(d)
-// tags.div({}, d)
-// title && useTitle(title)
 
 globalThis.items = UI({name : "from MDZjs"})
 
-globalThis.App = tags.section({}, ...items).style({
+globalThis.App = ScrollArea({}, ...items).style({
     border : '1px darkblue solid',
-    padding : '16px'
+    padding : '16px',
+    height : '100vh'
 })
 
-App.mount(document.body)
 
-// .forEach(n => n.mount(document.body))
-    // .vertical(-1, 0)
-    // .style({
-    //     border :"1px darkblue solid",
-    //     padding : "15px",
-    // }).mount(document.body)
+
+App.mount(document.body)

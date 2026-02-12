@@ -15,14 +15,18 @@ export default function ViteMDZ({ extensions = [".mdx"], plugins } = {}) {
 
     handleHotUpdate({ file, server }) {
       if (file.endsWith(".mdz")) {
+        console.log({file})
         server.ws.send({
-          type: "custom",
-          event: "custom-update",
-          data: {
-            file,
-            timestamp: Date.now(),
-          },
-        });
+          type : 'full-reload'
+        })
+        // server.ws.send({
+        //   type: "custom",
+        //   event: "custom-update",
+        //   data: {
+        //     file,
+        //     timestamp: Date.now(),
+        //   },
+        // });
 
         return [file];
       }

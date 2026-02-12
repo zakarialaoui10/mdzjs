@@ -5,7 +5,7 @@ import {
 } from "../utils/index.js"
 import hljs from "highlight.js"
 const processMDZAST = (markdownAST) => {
-    // let hasCode = false;
+    let hasCode = false;
     let Tags = new Set()
     const transformNode = (node) => {
       switch(node.type){
@@ -79,8 +79,9 @@ const processMDZAST = (markdownAST) => {
           return hyperscript("code", "{}", `"${node.value}"`)
         }
         case 'code': {
+          hasCode = true;
           const highlightedCode = hljs.highlightAuto(node.value, [node.lang || '']).value;
-          const formatedCode = highlightedCode.replace(/(\r\n|\n|\r)/g, "<br>")    
+          const formatedCode = highlightedCode.replace(/(\r\n|\n|\r)/g, "<br>");   
           return `HTMLWrapper('<pre><code>${formatedCode}</code></pre>')`
         }
         case 'blockquote': {
@@ -158,7 +159,7 @@ const processMDZAST = (markdownAST) => {
       Tags,
       esm,
       statements,
-      // hasCode
+      hasCode
     }
   };
 export {
