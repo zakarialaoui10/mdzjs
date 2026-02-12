@@ -1,6 +1,6 @@
 {
   "name": "mdzjs",
-  "version": "0.13.0",
+  "version": "0.13.2",
   "description": "markdown preprocessor for zikojs",
   "main": "index.js",
   "type": "module",
