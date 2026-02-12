@@ -5,12 +5,10 @@ MDZ.Props :
   name : "ziko"
 ---
 
-import {Dom} from "./components/Dom"
 import InteractiveBlock from "./components/InteractiveBlock.js"
 
 # Hello world 
 
-<Dom text="Hello from dom" color="red" />
 <InteractiveBlock data = 'tdhdhdt' />
 
 Hello **{name}**

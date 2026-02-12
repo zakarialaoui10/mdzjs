@@ -1,13 +1,14 @@
-// import { useTitle } from "ziko"
 import {tags} from 'ziko/ui'
-// import {Dom} from './components/Dom.js'
-// import UI, {title} from "./test.mdz"
 import UI from './test.mdz'
 
+import hljs from "highlight.js"
+import 'highlight.js/styles/github.css';
+hljs.highlightAll()
 // globalThis.d = Dom({text : 'AAAAA', color : 'red'})
 // console.log(d)
 // tags.div({}, d)
 // title && useTitle(title)
+
 globalThis.items = UI({name : "from MDZjs"})
 
 globalThis.App = tags.section({}, ...items).style({

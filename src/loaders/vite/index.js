@@ -6,7 +6,6 @@ export default function ViteMDZ({ extensions = [".mdx"], plugins } = {}) {
     async transform(src, id) {
       if (id.endsWith(".mdz") || extensions.some((ext) => id.endsWith(ext))) {
         const code = await transpileMDZ(src, {plugins});
-        console.log({code})
         return {
           code,
           map: null,

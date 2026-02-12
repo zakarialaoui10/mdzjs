@@ -1,6 +1,7 @@
+# MDZjs
+
 [![mdzjs banner](https://raw.githubusercontent.com/zikojs/.github/main/assets/banners/mdzjs.svg)](https://github.com/zikojs)
 
-# MDZjs
 A Markdown preprocessor for Zikojs.
 It combines the simplicity of Markdown syntax with the power and flexibility of ***Javascript***
 

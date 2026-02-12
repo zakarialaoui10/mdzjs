@@ -5,7 +5,8 @@ import {
 } from "../utils/index.js"
 import hljs from "highlight.js"
 const processMDZAST = (markdownAST) => {
-    let hasCode = false;
+    // let hasCode = false;
+    let Tags = new Set()
     const transformNode = (node) => {
       switch(node.type){
         case 'mdxjsEsm' : {
@@ -31,53 +32,64 @@ const processMDZAST = (markdownAST) => {
         }
         case 'heading' : {
           const childNodes = node.children.map(transformNode).join(', ');
-          return hyperscript(`h${node.depth}`,"{}", childNodes);
+          const tag = `h${node.depth}`
+          Tags.add(tag);
+          return hyperscript(tag,"{}", childNodes);
         }
         case 'paragraph' : {
           const childNodes = node.children.map(transformNode).join(', ');
+          Tags.add('p');
           return hyperscript("p","{}", childNodes)
         }
         case 'strong': {
           const childNodes = node.children.map(transformNode).join(', ');
+          Tags.add('strong');
           return hyperscript("strong","{}", childNodes);
         }
         case 'emphasis': {
           const childNodes = node.children.map(transformNode).join(', ');
+          Tags.add('em');
           return hyperscript("em","{}", childNodes);
         }
         case 'link': {
           const childNodes = node.children.map(transformNode).join(', ');
+          Tags.add('a');
           return hyperscript("a", `{ href: "${node.url}" }`, childNodes);
         }
         case 'image': {
-          hyperscript("img", `{ src: "${node.url}", alt: "${node.alt || ''}`)
+          hyperscript("img", `{ src: "${node.url}", alt: "${node.alt || ''}`);
+          Tags.add('img');
           return `tags.img({ src: "${node.url}", alt: "${node.alt || ''}" })`;
         }
   
         case 'list': {
           const listTag = node.ordered ? 'ol' : 'ul';
+          Tags.add(listTag);
           const childNodes = node.children.map(transformNode).join(', ');
           return hyperscript(listTag, "{}", childNodes);
         }
   
         case 'listItem': {
           const childNodes = node.children.map(transformNode).join(', ');
+          Tags.add('li');
           return hyperscript("li", "{}", childNodes);
         }
         case 'inlineCode' : {
+          Tags.add('code');
           return hyperscript("code", "{}", `"${node.value}"`)
         }
         case 'code': {
-          hasCode = true;
           const highlightedCode = hljs.highlightAuto(node.value, [node.lang || '']).value;
           const formatedCode = highlightedCode.replace(/(\r\n|\n|\r)/g, "<br>")    
           return `HTMLWrapper('<pre><code>${formatedCode}</code></pre>')`
         }
         case 'blockquote': {
           const childNodes = node.children.map(transformNode).join(', ');
+          Tags.add('blockquote');
           return hyperscript("blockquote", "{}", childNodes);
         }
         case 'thematicBreak': {
+          Tags.add('hr');
           return `tags.hr({})`;
         }
         case 'table': {
@@ -85,14 +97,17 @@ const processMDZAST = (markdownAST) => {
           const bodyRows = node.children.slice(1).map(transformNode).join(', ');
           const thead = hyperscript("thead", "{}", hyperscript("tr", "{}", headerRows));
           const tbody = hyperscript("tbody", "{}", bodyRows);
+          Tags.add('table').add('thead').add('tbody').add('tr')
           return hyperscript("table", "{}", [thead, tbody].join(","))
         }
         case 'tableRow': {
           const cells = node.children.map(transformNode).join(', ');
+          Tags.add('tr');
           return `${hyperscript("tr", "{}", cells)}`
         }
         case 'tableCell': {
           const childNodes = node.children.map(transformNode).join(', ');
+          Tags.add('td');
           return `${hyperscript("td", "{}", childNodes)}`
         }
         case 'mdxJsxTextElement': {
@@ -109,7 +124,10 @@ const processMDZAST = (markdownAST) => {
             case "jsx" : {
               return `${name}(${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
             }
-            case "html" : return `tags.${name}(${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
+            case "html" : {
+              Tags.add(name);
+              return `tags.${name}(${processAttribute(attributes)}${hasChildren ?`, ${childNodes}`:""})`;
+            }
             case "script" : {
               const statements = [];
               for(let i=0; i<node.children.length; i++) statements.push(node.children[i].children[0].value)
@@ -137,9 +155,10 @@ const processMDZAST = (markdownAST) => {
       }
     });
     return {
+      Tags,
       esm,
       statements,
-      hasCode
+      // hasCode
     }
   };
 export {
