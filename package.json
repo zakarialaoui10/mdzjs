@@ -1,6 +1,6 @@
 {
   "name": "mdzjs",
-  "version": "0.15.1",
+  "version": "0.17.0",
   "description": "markdown preprocessor for zikojs",
   "main": "index.js",
   "type": "module",
@@ -32,24 +32,24 @@
   },
   "license": "MIT",
   "dependencies": {
-    "acorn": "^8.14.0",
+    "acorn": "^8.15.0",
     "highlight.js": "^11.11.1",
-    "htmlparser2": "^9.1.0",
+    "htmlparser2": "^10.1.0",
     "remark-frontmatter": "^5.0.0",
-    "remark-gfm": "^4.0.0",
-    "remark-mdx": "^3.1.0",
+    "remark-gfm": "^4.0.1",
+    "remark-mdx": "^3.1.1",
     "remark-parse": "^11.0.0",
     "remark-toc": "^9.0.0",
-    "rollup": "^4.24.0",
+    "rollup": "^4.57.1",
     "unified": "^11.0.5",
     "vfile-matter": "^5.0.1",
     "vfile-reporter": "^8.1.1",
-    "ziko": "^0.63.2"
+    "ziko": "^0.64.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.0",
-    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
-    "cross-env": "^7.0.3"
+    "cross-env": "^10.1.0"
   }
 }
