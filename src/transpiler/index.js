@@ -8,8 +8,10 @@ const transpileMD = async (Markdown, {plugins = []} = {})=>{
 
     const { 'MDZ.Props': props, ...attrs } = frontmatter;
 
+    const imports = hasCode ? 'import {tags, HTMLWrapper} from "ziko/ui"' : 'import {tags} from "ziko/ui"';
+
     const body = [
-        'import {tags, HTMLWrapper} from "ziko/ui"',
+        imports,
         ...esm,
         transformeAttrs(attrs),
         `export default (${stringifyProps(props)})=>{`,
