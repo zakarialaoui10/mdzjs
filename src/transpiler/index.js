@@ -1,10 +1,10 @@
 import { parseMDZ } from "../parser/index.js";
-import { processMDZAST } from "../processor/index.js";
+import { processMDAST } from "../preprocessor/index.js";
 import { stringifyProps, transformeAttrs } from "../utils/index.js";
 
-const transpileMDZ = async (Markdown, {plugins = []} = {})=>{
+const transpileMD = async (Markdown, {plugins = []} = {})=>{
     const {ast, frontmatter} = await parseMDZ(Markdown.trimStart(), ...plugins);
-    const {esm, statements, hasCode, Tags}= processMDZAST(ast);
+    const {esm, statements, hasCode, Tags}= processMDAST(ast);
 
     const { 'MDZ.Props': props, ...attrs } = frontmatter;
 
@@ -23,5 +23,5 @@ const transpileMDZ = async (Markdown, {plugins = []} = {})=>{
     return body.join("\n");
 }
 export{
-    transpileMDZ
+    transpileMD
 }

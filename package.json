@@ -1,6 +1,6 @@
 {
   "name": "mdzjs",
-  "version": "0.13.2",
+  "version": "0.14.0",
   "description": "markdown preprocessor for zikojs",
   "main": "index.js",
   "type": "module",
@@ -13,7 +13,8 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./src/index.js",
-    "./*": "./src/loaders/*/index.js"
+    "./*": "./src/loaders/*/index.js",
+    "./preprocessor" : "./src/preprocessor/index.js"
   },
   "author": "zakaria elalaoui",
   "keywords": [

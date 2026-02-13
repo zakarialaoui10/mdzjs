@@ -1,6 +1,6 @@
 import { parseMDZ } from "./parser/index.js";
-import { processMDZAST } from "./processor/index.js";
-import { transpileMDZ } from "./transpiler/index.js";
+import { processMDAST } from "./processor/index.js";
+import { transpileMD } from "./transpiler/index.js";
 const inp = `
 ---
 a : 1
@@ -17,8 +17,8 @@ import A from 'B';
 # Hello 
 `
 const out = await parseMDZ(inp.trimStart())
-// const p = processMDZAST(out.ast)
-// const t = await transpileMDZ(inp)
+// const p = processMDAST(out.ast)
+// const t = await transpileMD(inp)
 
 console.log(out)
 // console.log(p)

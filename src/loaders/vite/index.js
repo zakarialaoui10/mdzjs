@@ -1,11 +1,11 @@
-import { transpileMDZ } from "../../transpiler/index.js";
+import { transpileMD } from "../../transpiler/index.js";
 
 export default function ViteMDZ({ extensions = [".mdx"], plugins } = {}) {
   return {
     name: "mdz-loader",
     async transform(src, id) {
       if (id.endsWith(".mdz") || extensions.some((ext) => id.endsWith(ext))) {
-        const code = await transpileMDZ(src, {plugins});
+        const code = await transpileMD(src, {plugins});
         return {
           code,
           map: null,

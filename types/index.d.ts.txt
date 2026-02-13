@@ -1,7 +1,0 @@
-declare module "*.mdz" {
-    // import type { UIElement } from "ziko"
-  import { UIElement } from "ziko"
-
-  const Component: (props?: Record<string, any>, A) => UIElement
-  export default Component
-}

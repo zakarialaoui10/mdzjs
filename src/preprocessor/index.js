@@ -4,7 +4,7 @@ import {
   hyperscript
 } from "../utils/index.js"
 import hljs from "highlight.js"
-const processMDZAST = (markdownAST) => {
+export const processMDAST = (markdownAST) => {
     let hasCode = false;
     let Tags = new Set()
     const transformNode = (node) => {
@@ -162,6 +162,3 @@ const processMDZAST = (markdownAST) => {
       hasCode
     }
   };
-export {
-    processMDZAST
-}

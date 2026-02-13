@@ -4,7 +4,7 @@ background : "red"
 MDZ.Props : 
   name : "ziko"
 ---
-
+        
 import InteractiveBlock from "./components/InteractiveBlock.js"
 import { TableOfContents } from 'zextra/nav'
 
