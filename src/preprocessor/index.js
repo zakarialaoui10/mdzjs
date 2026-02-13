@@ -91,7 +91,7 @@ export const processMDAST = (markdownAST) => {
         }
         case 'thematicBreak': {
           Tags.add('hr');
-          return `tags.hr({})`;
+          return `hr({})`;
         }
         case 'table': {
           const headerRows = node.children[0].children.map(transformNode).join(', ');
