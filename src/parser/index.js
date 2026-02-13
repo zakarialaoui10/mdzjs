@@ -9,7 +9,7 @@ import { VFile } from 'vfile';
 import {matter} from 'vfile-matter';
 
 
-export async function parseMDZ(markdown, ...plugins) {
+export async function parseMD(markdown, ...plugins) {
   const file = new VFile(markdown);
   matter(file, { strip: true });
 
@@ -52,7 +52,7 @@ export async function parseMDZ(markdown, ...plugins) {
 
 // // ### Discovery
 // // `.trimStart()
-// const out = await parseMDZ(inp)
+// const out = await parseMD(inp)
 // console.log(out.ast)
 
 // // console.log(JSON.stringify(out.ast.children, null, 2))

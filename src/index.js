@@ -1,57 +1,61 @@
-import { unified } from 'unified';
-import { reporter } from 'vfile-reporter'
-import remarkParse from 'remark-parse';
-import remarkMdx from 'remark-mdx'
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkToc from 'remark-toc'
-import remarkGFM from 'remark-gfm';
-import { VFile } from 'vfile';
-import {matter} from 'vfile-matter';
+export * from './parser/index.js'
+export * from './preprocessor/index.js'
+export * from './transpiler/index.js'
+export * from './utils/index.js'
+// import { unified } from 'unified';
+// import { reporter } from 'vfile-reporter'
+// import remarkParse from 'remark-parse';
+// import remarkMdx from 'remark-mdx'
+// import remarkFrontmatter from 'remark-frontmatter';
+// import remarkToc from 'remark-toc'
+// import remarkGFM from 'remark-gfm';
+// import { VFile } from 'vfile';
+// import {matter} from 'vfile-matter';
 
 
-export async function parseMarkdown(markdown, ...plugins) {
-  const file = new VFile(markdown);
-  matter(file, { strip: true });
+// export async function parseMarkdown(markdown, ...plugins) {
+//   const file = new VFile(markdown);
+//   matter(file, { strip: true });
 
-  const preprocessor = unified()
-    .use(remarkParse)
-    .use(remarkGFM)
-    .use(remarkFrontmatter, ['yaml'])
-    .use(remarkToc)
-    .use(remarkMdx)
+//   const preprocessor = unified()
+//     .use(remarkParse)
+//     .use(remarkGFM)
+//     .use(remarkFrontmatter, ['yaml'])
+//     .use(remarkToc)
+//     .use(remarkMdx)
 
-  plugins.forEach(plugin => {
-    if (Array.isArray(plugin)) preprocessor.use(...plugin);
-    else preprocessor.use(plugin);
-  })
-  const ast = preprocessor.parse(String(file));
-  if(file.messages.length > 0 ) console.error(reporter(file))
+//   plugins.forEach(plugin => {
+//     if (Array.isArray(plugin)) preprocessor.use(...plugin);
+//     else preprocessor.use(plugin);
+//   })
+//   const ast = preprocessor.parse(String(file));
+//   if(file.messages.length > 0 ) console.error(reporter(file))
 
-  return {
-    file,
-    frontmatter: file.data.matter,
-    ast,
-  };
-}
+//   return {
+//     file,
+//     frontmatter: file.data.matter,
+//     ast,
+//   };
+// }
 
-// const inp = `
-// ---
-// a : 1
-// b : 2
-// MDZ.Props : 
-//  - a : 1
-//  - c : 2
-// ---
+// // const inp = `
+// // ---
+// // a : 1
+// // b : 2
+// // MDZ.Props : 
+// //  - a : 1
+// //  - c : 2
+// // ---
 
-// // const {a, b} 
-// // = MDZ.Props
+// // // const {a, b} 
+// // // = MDZ.Props
 
-// ## Contents
+// // ## Contents
 
-// ## History
+// // ## History
 
-// ### Discovery
-// `.trimStart()
-// const out = await parseMarkdown(inp)
+// // ### Discovery
+// // `.trimStart()
+// // const out = await parseMarkdown(inp)
 
-// console.log(JSON.stringify(out.ast.children, null, 2))
+// // console.log(JSON.stringify(out.ast.children, null, 2))
