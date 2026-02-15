@@ -29,7 +29,7 @@ export default defineConfig({
 ---
  title : MDZ 
  name : world
- __props__ : 
+ MDZ.Props : 
    background : tomato
    data : []
 ---
