@@ -1,6 +1,6 @@
 {
   "name": "mdzjs",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "markdown preprocessor for zikojs",
   "main": "index.js",
   "type": "module",
@@ -44,7 +44,7 @@
     "unified": "^11.0.5",
     "vfile-matter": "^5.0.1",
     "vfile-reporter": "^8.1.1",
-    "ziko": "^0.64.0"
+    "ziko": "^0.66.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.0",
