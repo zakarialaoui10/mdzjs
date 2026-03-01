@@ -1,4 +1,4 @@
-import {tags} from 'ziko/ui'
+import {tags} from 'ziko/dom'
 import UI from './test.mdz'
 import { ScrollArea } from 'zextra/containers'
 

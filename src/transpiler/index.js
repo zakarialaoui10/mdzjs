@@ -8,7 +8,7 @@ const transpileMD = async (Markdown, {plugins = []} = {})=>{
 
     const { 'MDZ.Props': props, ...attrs } = frontmatter;
 
-    const imports = hasCode ? 'import {tags, HTMLWrapper} from "ziko/ui"' : 'import {tags} from "ziko/ui"';
+    const imports = hasCode ? 'import {tags, HTMLWrapper} from "ziko/dom"' : 'import {tags} from "ziko/dom"';
 
     const body = [
         imports,
